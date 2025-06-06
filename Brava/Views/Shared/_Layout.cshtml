@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brava</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+</head>
+<body>
+    @RenderSection("VideoBanner", required: false);
+
+    <header>
+        <div class="navbar-container">
+            <div class="navbar-left">
+                <nav class="navbar-links-desktop">
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                    <a asp-controller="Science" asp-action="Index">Science</a>
+                    <a asp-controller="OurStory" asp-action="Index">Our Story</a>
+                    <a href="https://www.Amazon.com/">Shop</a>
+                </nav>
+            </div>
+
+            <div class="navbar-center">
+                <a href="/" class="logo">
+                    @* <img src="~/images/logo-white.svg" alt="Brava Logo (Light)"> *@
+                    <img src="~/images/logo-dark.svg" alt="Brava Logo (Dark)">
+                </a>
+            </div>
+            
+            <div class="navbar-right">
+                <div class="social-icons-desktop">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+                <button class="navbar-toggle" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        
+    </header>
+
+    <!-- Slide-in Mobile Drawer -->
+    <div class="mobile-drawer-overlay"></div>
+    <nav class="mobile-drawer">
+        <button class="close-drawer" aria-label="Close navigation"><i class="fas fa-times"></i></button>
+        <a asp-controller="Home" asp-action="Index">Home</a>
+        <a asp-controller="Science" asp-action="Index">Science</a>
+        <a asp-controller="OurStory" asp-action="Index">Our Story</a>
+        <a href="https://www.Amazon.com/">Shop</a>
+    </nav>
+
+    <main>
+        @RenderBody();
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>Client Services</h4>
+                <ul>
+                    <li><a asp-controller="FAQ" asp-action="Index">FAQ</a></li>
+                    <li><a asp-controller="Contact" asp-action="Index">Contact Us</a></li>
+                    <li><a asp-controller="Privacy" asp-action="Index">Privacy Policy</a></li>
+                    <li><a asp-controller="Terms" asp-action="Index">Terms & Conditions</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a asp-controller="Science" asp-action="Index">Science</a></li>
+                    <li><a asp-controller="OurStory" asp-action="Index">Our Story</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Brava. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const toggleButton = document.querySelector(".navbar-toggle");
+            const closeButton = document.querySelector(".close-drawer");
+            const overlay = document.querySelector(".mobile-drawer-overlay");
+            const drawer = document.querySelector(".mobile-drawer");
+            const body = document.body;
+
+            function openDrawer() {
+                body.classList.remove("drawer-close");
+                body.classList.add("drawer-open");
+            }
+
+            function closeDrawer() {
+                body.classList.remove("drawer-open");
+                body.classList.add("drawer-close");
+            }
+
+            toggleButton.addEventListener("click", openDrawer);
+            closeButton.addEventListener("click", closeDrawer);
+            overlay.addEventListener("click", closeDrawer);
+
+            // Close drawer on resize above 820px
+            function handleResize() {
+                if (window.innerWidth > 820) {
+                    closeDrawer();
+                }
+            }
+
+            window.addEventListener("resize", handleResize);
+
+            // Close on load if already too wide
+            handleResize();
+
+            // Header background on scroll
+            const nav = document.querySelector("header");
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 50) {
+                    nav.classList.add("scrolled-nav");
+                } else {
+                    nav.classList.remove("scrolled-nav");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
