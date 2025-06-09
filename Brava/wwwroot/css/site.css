@@ -412,28 +412,29 @@ body {
     display: flex;
     flex-wrap: nowrap;
     gap: 50px;
-    overflow-x: auto;
-    /*justify-content: flex-start;*/
+    overflow-x: hidden;
     justify-content: center;
     min-width: 0;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .gummie-card {
-    flex: 0 1 200px;
+    flex: 0 1 300px;
     box-sizing: border-box;
     max-width: 100%;
     text-align: center;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background: #fff;
-    /*border: 1px solid #ddd;*/
-    width: 200px;
-    padding-bottom: 12px;
-    transition: transform 0.2s ease;
+    border: .5px solid #ddd;
+    padding: 10px;
+    transition: transform 1s ease, background-color 1s ease;
 }
 
     .gummie-card:hover {
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
         transform: translateY(-4px);
+        background-color: rgba(239, 239, 240, 0.2);
     }
 
 .gummie-card-inner {
@@ -578,8 +579,6 @@ footer a:hover {
         flex-direction: column;
         align-items: center;
     }
-
-    
 
     .product-grid {
         width: 100%;

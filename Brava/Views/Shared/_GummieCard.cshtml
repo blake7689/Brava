@@ -1,22 +1,13 @@
-﻿@* @model Gummie
+﻿@model Gummie
 
-<div class="gummie-card">
-    <img src="~/@Model.ImagePath" class="gummie-image" alt="@Model.Name" />
-    <div class="gummie-info">
-        <h3 class="gummie-name">@Model.Name</h3>
-        <p class="gummie-description">@Model.Description</p>
-    </div>
-</div>
- *@
-
-@model Gummie
-
-<div class="gummie-card">
-    <div class="gummie-card-inner">
-        <img src="~/@Model.ImagePath" class="gummie-image" alt="@Model.Name" />
-        <div class="gummie-info">
-            <h3 class="gummie-name">@Model.Name</h3>
-            <p class="gummie-description">@Model.Description</p>
+<a href="https://www.amazon.com/" style="text-decoration:none">
+    <div class="gummie-card">
+        <div class="gummie-card-inner">
+            <img src="~/@Model.ImagePath" class="gummie-image" alt="@Model.Name" />
+            <div class="gummie-info">
+                <h3 class="gummie-name">@Model.Name</h3>
+                <p class="gummie-description">@Model.Description</p>
+            </div>
         </div>
     </div>
-</div>
+</a>
