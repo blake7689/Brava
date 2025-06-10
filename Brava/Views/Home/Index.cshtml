@@ -19,16 +19,71 @@
     </section>
 }
 
+<section class="faq-section">
+    <div class="faq-wrapper">
+        <div class="faq-content">
+            <h2 class="faq-title">Meet the best creatine supplement on the GD planet</h2>
+            <div class="faq-accordion">
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq1">
+                        What is Brava Nutrients and how does it work?
+                        <span class="icon">+</span>
+                    </button>
+                    <div id="faq1" class="faq-answer" hidden>
+                        <p>Brava Nutrients is a gummie for dummies. One second you're weak and frail, the next you're an absolutely ripped meat hulk.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq2">
+                        How do I use Brava Nutrients?
+                        <span class="icon">+</span>
+                    </button>
+                    <div id="faq2" class="faq-answer" hidden>
+                        <p>Just pop a gummie and then you're shredded, it's that easy!.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq3">
+                        Can I OD on Brava Nutrients?
+                        <span class="icon">+</span>
+                    </button>
+                    <div id="faq3" class="faq-answer" hidden>
+                        <p>It's too late, you're fucked.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq4">
+                        Is Dylan Clark actually gay?
+                        <span class="icon">+</span>
+                    </button>
+                    <div id="faq4" class="faq-answer" hidden>
+                        <p>Yes, he is in fact gay af.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq5">
+                        Should I take the whole bag at once?
+                        <span class="icon">+</span>
+                    </button>
+                    <div id="faq5" class="faq-answer" hidden>
+                        <p>You will be remembered..for being dumb af. No don't take the whole bag at once you fucking sped.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="faq-image">
+            <img src="~/images/pile.jpg" alt="Brava Product" />
+        </div>
+    </div>
+</section>
+
 <section class="product-section">
     <div class="product-section-grid">
         <div class="product-hero">
             <img src="~/images/product-hero.jpg"
                  alt="Brava Product"
                  loading="lazy"
-                 decoding="async"
-                 width="600"
-                 height="800"
-                 style="width: 100%; height: 100%;" />
+                 decoding="async" />
             <a href="https://www.amazon.com/" target="_blank" class="shop-all-button">Shop All</a>
         </div>
         <div class="product-grid">
@@ -40,10 +95,78 @@
     </div>
 </section>
 
-<section class="testimonials">
-    <h2>What Our Customers Say</h2>
-    <div class="testimonial">
-        <p>"Brava's creatine gummies have transformed my workouts!"</p>
-        <cite>- Alex D.</cite>
+<section class="section-template--17202894078102__ss_multicolumns_UHxx77 key-benefits-section">
+    <div class="container">
+        <h2 class="section-title">Key Benefits</h2>
+        <div class="multicolumns-grid">
+            <div class="multicolumns-item">
+                <img src="~/images/image1.webp" alt="Fight Oxidative Stress" class="multicolumns-item-image">
+                <h3>Fight Oxidative Stress</h3>
+                <p>Support your cells at the source. Hydrogen targets free radicals to help reduce oxidative stress and protect cellular health.</p>
+                <a href="/Science" class="learn-more">LEARN MORE</a>
+            </div>
+            <div class="multicolumns-item">
+                <img src="~/images/image2.webp" alt="Enhance Energy + Recovery" class="multicolumns-item-image">
+                <h3>Enhance Energy + Recovery</h3>
+                <p>Boost your cellular function to fuel your cells, fight fatigue, and recover faster—so you can feel your best every day.</p>
+                <a href="/Science" class="learn-more">LEARN MORE</a>
+            </div>
+            <div class="multicolumns-item">
+                <img src="~/images/image3.jpg" alt="Support Gut Health" class="multicolumns-item-image">
+                <h3>Support Gut Health</h3>
+                <p>Give your gut the support it deserves by promoting a healthy microbiome—key to better digestion and overall health.</p>
+                <a href="/Science" class="learn-more">LEARN MORE</a>
+            </div>
+            <div class="multicolumns-item">
+                <img src="~/images/image4.webp" alt="Boost Cognitive Function" class="multicolumns-item-image">
+                <h3>Boost Cognitive Function</h3>
+                <p>Combat brain fog and sharpen mental clarity with hydrogen’s ability to cross the blood-brain barrier—helping you stay focused and energized.</p>
+                <a href="/Science" class="learn-more">LEARN MORE</a>
+            </div>
+        </div>
     </div>
 </section>
+
+<section class="testimonials">
+    <h2>What Our Customers Say</h2>
+    <div class="testimonials-grid">
+        <div class="testimonial-card">
+            <p>"Brava's creatine gummies have transformed my workouts!"</p>
+            <cite>- Alex A.</cite>
+        </div>
+        <div class="testimonial-card">
+            <p>"I feel stronger and more energized during lifts."</p>
+            <cite>- Alex B.</cite>
+        </div>
+        <div class="testimonial-card">
+            <p>"These are the best-tasting supplements I've tried!"</p>
+            <cite>- Alex C.</cite>
+        </div>
+        <div class="testimonial-card">
+            <p>"Noticeable results within weeks. Highly recommend!"</p>
+            <cite>- Alex D.</cite>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const currentlyExpanded = btn.getAttribute('aria-expanded') === 'true';
+            const currentAnswer = document.getElementById(btn.getAttribute('aria-controls'));
+
+            // Close all other items
+            document.querySelectorAll('.faq-question').forEach(otherBtn => {
+                if (otherBtn !== btn) {
+                    otherBtn.setAttribute('aria-expanded', 'false');
+                    const otherAnswer = document.getElementById(otherBtn.getAttribute('aria-controls'));
+                    otherAnswer.hidden = true;
+                }
+            });
+
+            // Toggle current item
+            btn.setAttribute('aria-expanded', String(!currentlyExpanded));
+            currentAnswer.hidden = currentlyExpanded;
+        });
+    });
+</script>
