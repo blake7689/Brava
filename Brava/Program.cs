@@ -5,6 +5,7 @@ using Brava.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IGummieRepository, MockGummieRepository>();
+builder.Services.AddScoped<IBatchRepository, MockBatchRepository>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -23,8 +24,5 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapDefaultControllerRoute();
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

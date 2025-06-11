@@ -21,14 +21,12 @@
                     <a href="https://www.Amazon.com/">Shop</a>
                 </nav>
             </div>
-
             <div class="navbar-center">
                 <a href="/" class="logo">
                     @* <img src="~/images/logo-white.svg" alt="Brava Logo (Light)"> *@
                     <img src="~/images/logo-dark.svg" alt="Brava Logo (Dark)">
                 </a>
             </div>
-            
             <div class="navbar-right">
                 <div class="social-icons-desktop">
                     <a href="#https://www.facebook.com"><i class="fa-brands fa-facebook"></i></a>
@@ -40,8 +38,6 @@
                 </button>
             </div>
         </div>
-
-        
     </header>
 
     <!-- Slide-in Mobile Drawer -->
@@ -60,12 +56,39 @@
 
     <footer class="site-footer">
         <div class="footer-grid">
-            <div class="footer-section newsletter-section">
+            <div class="footer-section batch-section">
                 <h4>Search Batch Number</h4>
-                <form class="newsletter-form" method="post" action="/subscribe">
-                    <input type="text" name="batch" placeholder="Enter your batch number" required />
+                <form id="batchForm" class="batch-form">
+                    <input type="text" id="batchInput" name="batchNumber" placeholder="Enter your batch number" required />
                     <button type="submit">Search</button>
+                    <div id="batchError" style="color: red; margin-top: 5px; font-size: 0.9em;"></div>
                 </form>
+            </div>
+            <!-- Modal -->
+            <div id="batchModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+                <div class="modal-backdrop"></div>
+                <div class="modal-content" role="document">
+                    <button class="close-button" aria-label="Close modal">&times;</button>
+                    <h2 id="modalTitle" class="modal-title">Batch Information</h2>
+                    <div id="modalDesc" class="modal-body">
+                        <div class="modal-row">
+                            <span class="modal-label">Batch Number:</span>
+                            <span id="modalBatchNumber" class="modal-value"></span>
+                        </div>
+                        <div class="modal-row">
+                            <span class="modal-label">Manufactured Date:</span>
+                            <span id="modalManufacturedDate" class="modal-value"></span>
+                        </div>
+                        <div class="modal-row">
+                            <span class="modal-label">Manufactured Location:</span>
+                            <span id="modalManufacturedLocation" class="modal-value"></span>
+                        </div>
+                        <div class="modal-row">
+                            <span class="modal-label">Creatine Content:</span>
+                            <span id="modalCreatineContent" class="modal-value"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="footer-section">
                 <h4>Client Services</h4>
@@ -141,6 +164,53 @@
                     nav.classList.remove("scrolled-nav");
                 }
             });
+        });
+
+        const batchModal = document.getElementById("batchModal");
+        const closeBtn = batchModal.querySelector(".close-button");
+
+        function showModal() {
+            batchModal.classList.add("show");
+            batchModal.setAttribute("aria-hidden", "false");
+        }
+
+        function hideModal() {
+            batchModal.classList.remove("show");
+            batchModal.setAttribute("aria-hidden", "true");
+        }
+
+        closeBtn.addEventListener("click", hideModal);
+
+        batchModal.querySelector(".modal-backdrop").addEventListener("click", hideModal);
+
+        document.getElementById("batchForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const batchNumber = document.getElementById("batchInput").value;
+            const errorDiv = document.getElementById("batchError");
+            errorDiv.textContent = "";
+
+            fetch(`/api/batch?batchNumber=${encodeURIComponent(batchNumber)}`)
+                .then(async response => {
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        errorDiv.textContent = data.error || "An error occurred.";
+                        return;
+                    }
+
+                    errorDiv.textContent = "";
+
+                    document.getElementById("modalBatchNumber").textContent = data.batchNumber;
+                    document.getElementById("modalManufacturedDate").textContent = new Date(data.manufacturedDate).toLocaleDateString();
+                    document.getElementById("modalManufacturedLocation").textContent = data.manufacturedLocation ?? "N/A";
+                    document.getElementById("modalCreatineContent").textContent = data.creatineContent ?? "N/A";
+
+                    showModal();
+                })
+                .catch(err => {
+                    console.error("Error fetching batch:", err);
+                    errorDiv.textContent = "Unexpected error occurred.";
+                });
         });
     </script>
 </body>
