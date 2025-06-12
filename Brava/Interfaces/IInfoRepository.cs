@@ -1,0 +1,9 @@
+﻿namespace Brava.Interfaces
+{
+    public interface IInfoRepository
+    {
+        Dictionary<string, string> GetHomeContent();
+        Dictionary<string, string> GetScienceContent();
+        Dictionary<string, string> GetOurStoryContent();
+    }
+}

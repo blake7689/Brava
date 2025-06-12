@@ -10,7 +10,6 @@
 </head>
 <body>
     @RenderSection("VideoBanner", required: false);
-
     <header>
         <div class="navbar-container">
             <div class="navbar-left">
@@ -39,8 +38,6 @@
             </div>
         </div>
     </header>
-
-    <!-- Slide-in Mobile Drawer -->
     <div class="mobile-drawer-overlay"></div>
     <nav class="mobile-drawer">
         <button class="close-drawer" aria-label="Close navigation"><i class="fas fa-times"></i></button>
@@ -64,32 +61,7 @@
                     <div id="batchError" style="color: red; margin-top: 5px; font-size: 0.9em;"></div>
                 </form>
             </div>
-            <!-- Modal -->
-            <div id="batchModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDesc">
-                <div class="modal-backdrop"></div>
-                <div class="modal-content" role="document">
-                    <button class="close-button" aria-label="Close modal">&times;</button>
-                    <h2 id="modalTitle" class="modal-title">Batch Information</h2>
-                    <div id="modalDesc" class="modal-body">
-                        <div class="modal-row">
-                            <span class="modal-label">Batch Number:</span>
-                            <span id="modalBatchNumber" class="modal-value"></span>
-                        </div>
-                        <div class="modal-row">
-                            <span class="modal-label">Manufactured Date:</span>
-                            <span id="modalManufacturedDate" class="modal-value"></span>
-                        </div>
-                        <div class="modal-row">
-                            <span class="modal-label">Manufactured Location:</span>
-                            <span id="modalManufacturedLocation" class="modal-value"></span>
-                        </div>
-                        <div class="modal-row">
-                            <span class="modal-label">Creatine Content:</span>
-                            <span id="modalCreatineContent" class="modal-value"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <partial name="_BatchModal" />
             <div class="footer-section">
                 <h4>Client Services</h4>
                 <ul>
