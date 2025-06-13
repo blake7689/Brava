@@ -6,6 +6,7 @@ using System.Net.Mail;
 
 namespace Brava.Controllers
 {
+    [Route("Contact")]
     public class ContactController : Controller
     {
         private readonly InfoService _infoService;
@@ -15,39 +16,39 @@ namespace Brava.Controllers
             _infoService = infoService;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult ContactUs(ContactFormModel model)
+        public IActionResult Index(ContactFormModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    //todo
-                    //set up email info 
-                    var smtpClient = new SmtpClient("smtp.yourserver.com")
+                    var smtpClient = new SmtpClient("smtp.gmail.com")
                     {
                         Port = 587,
-                        Credentials = new NetworkCredential("your@email.com", "yourpassword"),
+                        Credentials = new NetworkCredential("bravanutrients@gmail.com", "wgwo vqlf hilj auew"),
                         EnableSsl = true,
                     };
 
                     var mail = new MailMessage
                     {
-                        From = new MailAddress("your@email.com"),
+                        From = new MailAddress("bravanutrients@gmail.com"),
                         Subject = "Brava Contact Form Submission",
                         Body = $"Name: {model.Name}\nEmail: {model.Email}\nMessage:\n{model.Message}",
                         IsBodyHtml = false
                     };
 
-                    mail.To.Add("your@email.com");
+                    mail.To.Add("bravanutrients@gmail.com");
                     smtpClient.Send(mail);
 
                     ViewBag.Message = "Your message has been sent!";
+                    ModelState.Clear();
                     return View();
                 }
                 catch

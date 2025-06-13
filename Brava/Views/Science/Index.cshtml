@@ -2,7 +2,76 @@
     ViewData["Title"] = "Science";
 }
 
-<body>
-    <h2>@ViewData["bodyHeader"]</h2>
-    <p>@ViewData["bodyContent"]</p>
-</body>
+<section class="science-hero bg-light text-center py-5" data-aos="fade-up">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-3">The Science Behind Brava</h1>
+        <p class="lead mx-auto" style="max-width: 700px;">
+            At Brava, we’re committed to combining cutting-edge research with clean ingredients to deliver the best hydration experience possible.
+        </p>
+    </div>
+</section>
+
+<section class="science-content py-5">
+    <div class="container">
+        <div class="row align-items-center mb-5" data-aos="fade-left">
+            <div class="col-md-6 order-md-2">
+                <img src="~/images/science-hydration.jpg" alt="Hydration Science" class="img-fluid rounded shadow" />
+            </div>
+            <div class="col-md-6 order-md-1">
+                <h2>Optimal Hydration Formula</h2>
+                <p>
+                    Our hydration formula is backed by scientific studies showing optimal electrolyte balance to maximize absorption and performance.
+                </p>
+                <p>
+                    We focus on the right blend of sodium, potassium, and magnesium — the key minerals your body needs to stay hydrated during activity.
+                </p>
+            </div>
+        </div>
+
+        <div class="row align-items-center mb-5" data-aos="fade-right">
+            <div class="col-md-6">
+                <img src="~/images/science-ingredients.jpg" alt="Natural Ingredients" class="img-fluid rounded shadow" />
+            </div>
+            <div class="col-md-6">
+                <h2>Clean, Natural Ingredients</h2>
+                <p>
+                    We source only clean, natural ingredients — no artificial sweeteners, colors, or preservatives. Because what goes in matters just as much as how it works.
+                </p>
+                <p>
+                    Our formulas are vegan, gluten-free, and non-GMO, crafted with your health in mind.
+                </p>
+            </div>
+        </div>
+
+        <div class="row align-items-center mb-5" data-aos="fade-left">
+            <div class="col-md-6 order-md-2">
+                <img src="~/images/science-research.jpg" alt="Scientific Research" class="img-fluid rounded shadow" />
+            </div>
+            <div class="col-md-6 order-md-1">
+                <h2>Backed by Research</h2>
+                <p>
+                    We collaborate with top universities and hydration experts to continually improve our formulas and stay at the forefront of hydration science.
+                </p>
+                <p>
+                    All our claims are based on published, peer-reviewed research to give you confidence in every sip.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="call-to-action bg-primary text-white text-center py-5" data-aos="zoom-in">
+    <div class="container">
+        <h3 class="mb-3">Ready to experience hydration science at its best?</h3>
+        <a href="/Shop" class="btn btn-light btn-lg">Shop Brava Now</a>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({
+      duration: 800,  
+      easing: 'ease-in-out',
+      once: true      
+    });
+</script>

@@ -5,7 +5,11 @@ using Brava.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddViewOptions(options =>
+    {
+        options.HtmlHelperOptions.ClientValidationEnabled = true;
+    });
 builder.Services.AddScoped<IInfoRepository, StaticInfoRepository>();
 builder.Services.AddScoped<InfoService>();
 builder.Services.AddScoped<IGummieRepository, MockGummieRepository>();

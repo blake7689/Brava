@@ -830,6 +830,34 @@ footer a:hover {
         outline: none;
     }
 
+/* Contact Page */
+.contact-top {
+    padding-top: 50px;
+}
+
+/*FAQ Page */
+.faq-search-bar {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.accordion-item {
+    margin-bottom: 1rem; 
+}
+
+.accordion-button {
+    transition: background-color 0.3s ease;
+}
+
+    .accordion-button:hover,
+    .accordion-button:focus {
+        background-color: #f8f9fa;
+    }
+
+.collapse {
+    transition: height 0.8s ease; 
+}
+
 /* Responsive Rules */
 @media (max-width: 1365px) {
     .product-hero {
