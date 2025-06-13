@@ -728,25 +728,27 @@ footer a:hover {
             background-color: #222;
         }
 
-.modal {
+.custom-modal {
     display: none;
     position: fixed;
-    z-index: 1000;
-    inset: 0; /* top:0; right:0; bottom:0; left:0; */
+    z-index: 4000;
+    inset: 0;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.modal-backdrop {
+.custom-modal-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(3px);
+    /*background: rgba(0, 0, 0, 0.2);*/
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(6px);
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
+    z-index: 4001;
 }
 
-.modal-content {
+.custom-modal-content {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -761,23 +763,24 @@ footer a:hover {
     transition: opacity 0.3s ease, transform 0.3s ease;
     overflow-y: auto;
     max-height: 80vh;
+    z-index: 4002;
 }
 
-.modal.show {
+.custom-modal.show {
     display: block;
 }
 
-    .modal.show .modal-backdrop {
+    .custom-modal.show .custom-modal-backdrop {
         opacity: 1;
         pointer-events: auto;
     }
 
-    .modal.show .modal-content {
+    .custom-modal.show .custom-modal-content {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1);
     }
 
-.modal-title {
+.custom-modal-title {
     font-weight: 600;
     font-size: 1.75rem;
     margin-bottom: 20px;
@@ -786,13 +789,13 @@ footer a:hover {
     letter-spacing: 0.02em;
 }
 
-.modal-body {
+.custom-modal-body {
     display: flex;
     flex-direction: column;
     gap: 14px;
 }
 
-.modal-row {
+.custom-modal-row {
     display: flex;
     justify-content: space-between;
     font-size: 1rem;
@@ -801,18 +804,18 @@ footer a:hover {
     color: #333;
 }
 
-.modal-label {
+.custom-modal-label {
     font-weight: 600;
     color: #555;
 }
 
-.modal-value {
+.custom-modal-value {
     color: #000;
     text-align: right;
     font-weight: 400;
 }
 
-.close-button {
+.custom-modal-close-button {
     position: absolute;
     top: 15px;
     right: 15px;
@@ -824,8 +827,8 @@ footer a:hover {
     transition: color 0.2s ease;
 }
 
-    .close-button:hover,
-    .close-button:focus {
+    .custom-modal-close-button:hover,
+    .custom-modal-close-button:focus {
         color: #444;
         outline: none;
     }

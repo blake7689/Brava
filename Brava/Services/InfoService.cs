@@ -14,5 +14,8 @@ namespace Brava.Services
         public Dictionary<string, string> GetHome() => _repository.GetHomeContent();
         public Dictionary<string, string> GetScience() => _repository.GetScienceContent();
         public Dictionary<string, string> GetOurStory() => _repository.GetOurStoryContent();
+        public Dictionary<string, string> GetFaq() => _repository.GetFAQContent();
+        public Dictionary<string, string> GetPrivacy() => _repository.GetPrivacyContent();
+        public Dictionary<string, string> GetTerms() => _repository.GetTermsContent();
     }
 }

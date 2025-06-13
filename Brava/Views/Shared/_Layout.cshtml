@@ -139,53 +139,54 @@
                     nav.classList.remove("scrolled-nav");
                 }
             });
-        });
+        
 
-        const batchModal = document.getElementById("batchModal");
-        const closeBtn = batchModal.querySelector(".close-button");
+            const batchModal = document.getElementById("batchModal");
+            const closeBtn = batchModal.querySelector(".custom-modal-close-button");
 
-        function showModal() {
-            batchModal.classList.add("show");
-            batchModal.setAttribute("aria-hidden", "false");
-        }
+            function showModal() {
+                batchModal.classList.add("show");
+                batchModal.setAttribute("aria-hidden", "false");
+            }
 
-        function hideModal() {
-            batchModal.classList.remove("show");
-            batchModal.setAttribute("aria-hidden", "true");
-        }
+            function hideModal() {
+                batchModal.classList.remove("show");
+                batchModal.setAttribute("aria-hidden", "true");
+            }
 
-        closeBtn.addEventListener("click", hideModal);
+            closeBtn.addEventListener("click", hideModal);
 
-        batchModal.querySelector(".modal-backdrop").addEventListener("click", hideModal);
+            batchModal.querySelector(".custom-modal-backdrop").addEventListener("click", hideModal);
 
-        document.getElementById("batchForm").addEventListener("submit", function (e) {
-            e.preventDefault();
-            const batchNumber = document.getElementById("batchInput").value;
-            const errorDiv = document.getElementById("batchError");
-            errorDiv.textContent = "";
+            document.getElementById("batchForm").addEventListener("submit", function (e) {
+                e.preventDefault();
+                const batchNumber = document.getElementById("batchInput").value;
+                const errorDiv = document.getElementById("batchError");
+                errorDiv.textContent = "";
 
-            fetch(`/api/batch?batchNumber=${encodeURIComponent(batchNumber)}`)
-                .then(async response => {
-                    const data = await response.json();
+                fetch(`/api/batch?batchNumber=${encodeURIComponent(batchNumber)}`)
+                    .then(async response => {
+                        const data = await response.json();
 
-                    if (!response.ok) {
-                        errorDiv.textContent = data.error || "An error occurred.";
-                        return;
-                    }
+                        if (!response.ok) {
+                            errorDiv.textContent = data.error || "An error occurred.";
+                            return;
+                        }
 
-                    errorDiv.textContent = "";
+                        errorDiv.textContent = "";
 
-                    document.getElementById("modalBatchNumber").textContent = data.batchNumber;
-                    document.getElementById("modalManufacturedDate").textContent = new Date(data.manufacturedDate).toLocaleDateString();
-                    document.getElementById("modalManufacturedLocation").textContent = data.manufacturedLocation ?? "N/A";
-                    document.getElementById("modalCreatineContent").textContent = data.creatineContent ?? "N/A";
+                        document.getElementById("modalBatchNumber").textContent = data.batchNumber;
+                        document.getElementById("modalManufacturedDate").textContent = new Date(data.manufacturedDate).toLocaleDateString();
+                        document.getElementById("modalManufacturedLocation").textContent = data.manufacturedLocation ?? "N/A";
+                        document.getElementById("modalCreatineContent").textContent = data.creatineContent ?? "N/A";
 
-                    showModal();
-                })
-                .catch(err => {
-                    console.error("Error fetching batch:", err);
-                    errorDiv.textContent = "Unexpected error occurred.";
-                });
+                        showModal();
+                    })
+                    .catch(err => {
+                        console.error("Error fetching batch:", err);
+                        errorDiv.textContent = "Unexpected error occurred.";
+                    });
+            });
         });
     </script>
 </body>

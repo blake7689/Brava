@@ -15,7 +15,7 @@ namespace Brava.Controllers
 
         public IActionResult Index()
         {
-            Dictionary<string, string> scienceContent = _infoService.GetHome();
+            Dictionary<string, string> scienceContent = _infoService.GetScience();
 
             foreach (KeyValuePair<string, string> content in scienceContent)
                 ViewData[content.Key] = content.Value;

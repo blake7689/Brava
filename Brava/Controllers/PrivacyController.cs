@@ -14,6 +14,11 @@ namespace Brava.Controllers
 
         public IActionResult Index()
         {
+            Dictionary<string, string> privacyContent = _infoService.GetPrivacy();
+
+            foreach (KeyValuePair<string, string> content in privacyContent)
+                ViewData[content.Key] = content.Value;
+
             return View();
         }
     }

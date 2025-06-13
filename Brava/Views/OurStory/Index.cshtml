@@ -5,30 +5,26 @@
 <!-- Meet the Founders Section -->
 <section class="meet-founders py-5 bg-light" data-aos="zoom-in">
     <div class="container">
-        <h2 class="mb-5 text-center">Meet the Founders</h2>
+        <h2 class="mb-5 text-center">@ViewData["foundersHeader"]</h2>
         <div class="row justify-content-center gy-4">
-
             <div class="col-md-4 text-center">
                 <img src="/images/founder1.jpg" alt="Founder 1" class="rounded-circle mb-3" style="width: 180px; height: 180px; object-fit: cover;">
-                <h5 class="mb-1">Jane Smith</h5>
-                <p class="text-muted fst-italic mb-2">Co-Founder & CEO</p>
-                <p>Passionate about hydration science and dedicated to delivering clean, effective products to consumers worldwide.</p>
+                <h5 class="mb-1">@ViewData["founder1Name"]</h5>
+                <p class="text-muted fst-italic mb-2">@ViewData["founder1Title"]</p>
+                <p>@ViewData["founder1Content"]</p>
             </div>
-
             <div class="col-md-4 text-center">
                 <img src="/images/founder2.jpg" alt="Founder 2" class="rounded-circle mb-3" style="width: 180px; height: 180px; object-fit: cover;">
-                <h5 class="mb-1">Michael Johnson</h5>
-                <p class="text-muted fst-italic mb-2">Co-Founder & Head of Innovation</p>
-                <p>Brings extensive scientific expertise and innovation to develop formulas that truly hydrate and refresh.</p>
+                <h5 class="mb-1">@ViewData["founder2Name"]</h5>
+                <p class="text-muted fst-italic mb-2">@ViewData["founder2Title"]</p>
+                <p>@ViewData["founder2Content"]</p>
             </div>
-
             <div class="col-md-4 text-center">
                 <img src="/images/founder3.jpg" alt="Founder 3" class="rounded-circle mb-3" style="width: 180px; height: 180px; object-fit: cover;">
-                <h5 class="mb-1">Emily Davis</h5>
-                <p class="text-muted fst-italic mb-2">Co-Founder & Marketing Director</p>
-                <p>Focuses on connecting the brand with customers through storytelling and impactful marketing strategies.</p>
+                <h5 class="mb-1">@ViewData["founder3Name"]</h5>
+                <p class="text-muted fst-italic mb-2">@ViewData["founder3Title"]</p>
+                <p>@ViewData["founder3Content"]</p>
             </div>
-
         </div>
     </div>
 </section>
@@ -36,49 +32,46 @@
 <!-- Timeline Section -->
 <section class="our-story-timeline py-5">
     <div class="container">
-        <h2 class="mb-5 text-center">Our Journey</h2>
+        <h2 class="mb-5 text-center">@ViewData["timelineHeader"]</h2>
         <div class="timeline">
             <div class="timeline-item mb-5">
                 <div class="row align-items-center">
                     <div class="col-md-6" data-aos="fade-right">
-                        <h4>2018 - The Idea</h4>
-                        <p>Inspired by the need for cleaner hydration options, Brava was born from a passion for science and health.</p>
+                        <h4>@ViewData["time1Header"]</h4>
+                        <p>@ViewData["time1Content"]</p>
                     </div>
                     <div class="col-md-6" data-aos="fade-left">
                         <img src="/images/our-story-2018.jpg" alt="2018 The Idea" class="img-fluid rounded shadow" />
                     </div>
                 </div>
             </div>
-
             <div class="timeline-item mb-5">
                 <div class="row align-items-center flex-md-row-reverse">
                     <div class="col-md-6" data-aos="fade-right">
-                        <h4>2019 - First Product Launch</h4>
-                        <p>We launched our first hydration formula, crafted with natural ingredients and backed by science.</p>
+                        <h4>@ViewData["time2Header"]</h4>
+                        <p>@ViewData["time2Content"]</p>
                     </div>
                     <div class="col-md-6" data-aos="fade-left">
                         <img src="/images/our-story-2019.jpg" alt="2019 Launch" class="img-fluid rounded shadow" />
                     </div>
                 </div>
             </div>
-
             <div class="timeline-item mb-5">
                 <div class="row align-items-center">
                     <div class="col-md-6" data-aos="fade-right">
-                        <h4>2021 - Growth & Innovation</h4>
-                        <p>Expanded our product line and strengthened partnerships with top hydration scientists worldwide.</p>
+                        <h4>@ViewData["time3Header"]</h4>
+                        <p>@ViewData["time3Content"]</p>
                     </div>
                     <div class="col-md-6" data-aos="fade-left">
                         <img src="/images/our-story-2021.jpg" alt="2021 Growth" class="img-fluid rounded shadow" />
                     </div>
                 </div>
             </div>
-
             <div class="timeline-item mb-5">
                 <div class="row align-items-center flex-md-row-reverse">
                     <div class="col-md-6" data-aos="fade-right">
-                        <h4>2024 - Looking Ahead</h4>
-                        <p>Continuing our mission to redefine hydration with innovative, clean, and effective products for everyone.</p>
+                        <h4>@ViewData["time4Header"]</h4>
+                        <p>@ViewData["time4Content"]</p>
                     </div>
                     <div class="col-md-6" data-aos="fade-left">
                         <img src="/images/our-story-2024.jpg" alt="2024 Future" class="img-fluid rounded shadow" />
@@ -92,22 +85,22 @@
 <!-- Brand Values Section -->
 <section class="brand-values bg-light py-5" data-aos="zoom-in">
     <div class="container">
-        <h2 class="mb-5 text-center">What Drives Us</h2>
+        <h2 class="mb-5 text-center">@ViewData["valuesHeader"]</h2>
         <div class="row text-center gy-4">
             <div class="col-md-4">
                 <img src="/images/value-quality.svg" alt="Quality" class="mb-3" style="height: 80px;">
-                <h5>Uncompromising Quality</h5>
-                <p>Every bottle is crafted with the highest standards and purest ingredients.</p>
+                <h5>@ViewData["values1Header"]</h5>
+                <p>@ViewData["values1Content"]</p>
             </div>
             <div class="col-md-4">
                 <img src="/images/value-science.svg" alt="Science" class="mb-3" style="height: 80px;">
-                <h5>Science-Backed Formulas</h5>
-                <p>We base every product on proven research to deliver real hydration benefits.</p>
+                <h5>@ViewData["values2Header"]</h5>
+                <p>@ViewData["values2Content"]</p>
             </div>
             <div class="col-md-4">
                 <img src="/images/value-sustainability.svg" alt="Sustainability" class="mb-3" style="height: 80px;">
-                <h5>Commitment to Sustainability</h5>
-                <p>Eco-friendly practices and packaging to protect the planet.</p>
+                <h5>@ViewData["values3Header"]</h5>
+                <p>@ViewData["values3Content"]</p>
             </div>
         </div>
     </div>

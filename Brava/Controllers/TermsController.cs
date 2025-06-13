@@ -14,6 +14,11 @@ namespace Brava.Controllers
 
         public IActionResult Index()
         {
+            Dictionary<string, string> termsContent = _infoService.GetTerms();
+
+            foreach (KeyValuePair<string, string> content in termsContent)
+                ViewData[content.Key] = content.Value;
+
             return View();
         }
     }
