@@ -27,7 +27,7 @@ namespace Brava.Repositories
                 new Batch {
                     BatchID = 3,
                     BatchNumber= "1234C",
-                    ManufacturedDate = DateTime.Today.AddDays(-35),
+                    ManufacturedDate = DateTime.Today.AddDays(-30),
                     ManufacturedLocation = "Atlanta, Ga",
                     CreatineContent = "1.25g Per Serving"
                 },
@@ -35,7 +35,7 @@ namespace Brava.Repositories
                 new Batch {
                     BatchID = 4,
                     BatchNumber= "1234D",
-                    ManufacturedDate = DateTime.Today.AddDays(-35),
+                    ManufacturedDate = DateTime.Today.AddDays(-10),
                     ManufacturedLocation = "Atlanta, Ga",
                     CreatineContent = "1.25g Per Serving"
                 }

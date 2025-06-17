@@ -28,7 +28,6 @@ namespace Brava.Controllers.Api
             if (batch == null)
                 return NotFound(new { error = "Batch not found." });
 
-            //return Ok(batch);
             return new JsonResult(batch);
         }
     }

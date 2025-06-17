@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36119.2 d17.14
+VisualStudioVersion = 17.14.36119.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brava", "Brava\Brava.csproj", "{0D52F030-D0DB-4C50-BC44-44C40B5217C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BravaTests", "BravaTests\BravaTests.csproj", "{16B0A918-045B-4A25-AA9F-5C44174BAEA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{0D52F030-D0DB-4C50-BC44-44C40B5217C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D52F030-D0DB-4C50-BC44-44C40B5217C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D52F030-D0DB-4C50-BC44-44C40B5217C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16B0A918-045B-4A25-AA9F-5C44174BAEA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16B0A918-045B-4A25-AA9F-5C44174BAEA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16B0A918-045B-4A25-AA9F-5C44174BAEA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16B0A918-045B-4A25-AA9F-5C44174BAEA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
