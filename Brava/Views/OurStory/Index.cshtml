@@ -114,3 +114,47 @@
       once: true
     });
 </script>
+
+<script type="application/ld+json">
+{
+    "@@context": "https://schema.org",
+    "@@type": "AboutPage",
+    "name": "Brava - Our Story",
+        "url": "https://www.Bravanutrition.com/OurStory",
+    "description": "Learn about Brava's founders, milestones, and core values.",
+    "mainEntity": {
+    "@@type": "Organization",
+    "name": "Brava",
+        "url": "https://www.Bravanutrition.com",
+    "logo": {
+        "@@type": "ImageObject",
+            "url": "https://www.Bravanutrition.com/images/logo-dark.svg"
+    },
+    "founder": [
+        {
+        "@@type": "Person",
+        "name": "@ViewData["founder1Name"]",
+        "jobTitle": "@ViewData["founder1Title"]",
+        "description": "@ViewData["founder1Content"]",
+            "image": "https://www.Bravanutrition.com/images/founder1.jpg"
+        },
+        {
+        "@@type": "Person",
+        "name": "@ViewData["founder2Name"]",
+        "jobTitle": "@ViewData["founder2Title"]",
+        "description": "@ViewData["founder2Content"]",
+            "image": "https://www.Bravanutrition.com/images/founder2.jpg"
+        },
+        {
+        "@@type": "Person",
+        "name": "@ViewData["founder3Name"]",
+        "jobTitle": "@ViewData["founder3Title"]",
+        "description": "@ViewData["founder3Content"]",
+            "image": "https://www.Bravanutrition.com/images/founder3.jpg"
+        }
+    ],
+    "foundingDate": "2018-01-01",
+    "description": "@ViewData["timelineHeader"]"
+    }
+}
+</script>

@@ -24,11 +24,13 @@
             </div>
             <div class="navbar-center">
                 <a href="/" class="logo">
-                    @* <img src="~/images/logo-white.svg" alt="Brava Logo (Light)"> *@
                     <img src="~/images/logo-dark.svg" alt="Brava Logo (Dark)">
                 </a>
             </div>
             <div class="navbar-right">
+                <div class="navbar-links-desktop" style="padding-right: 20px">
+                    <a asp-controller="BatchLookup" asp-action="Index">Batch <i class="fa fa-search"></i></a>
+                </div>
                 <div class="social-icons-desktop">
                     <a href="#https://www.facebook.com"><i class="fa-brands fa-facebook"></i></a>
                     <a href="#https://www.instagram.com"><i class="fa-brands fa-instagram"></i></a>
@@ -46,6 +48,7 @@
         <a asp-controller="Home" asp-action="Index">Home</a>
         <a asp-controller="Science" asp-action="Index">Science</a>
         <a asp-controller="OurStory" asp-action="Index">Our Story</a>
+        <a asp-controller="BatchLookup" asp-action="Index">Batch Lookup</a>
         <a href="https://www.Amazon.com/">Shop</a>
     </nav>
 
@@ -56,15 +59,19 @@
 
     <footer class="site-footer">
         <div class="footer-grid">
-            <div class="footer-section batch-section">
-                <h4>Search Batch Number</h4>
-                <form id="batchForm" class="batch-form">
-                    <input type="text" id="batchInput" name="batchNumber" placeholder="Enter your batch number" required />
-                    <button type="submit">Search</button>
-                    <div id="batchError" style="color: red; margin-top: 5px; font-size: 0.9em;"></div>
-                </form>
-            </div>
+            @{ var currentController = ViewContext.RouteData.Values["controller"]?.ToString(); }
+            @if (currentController != "BatchLookup")
+            {
+                <div class="footer-section batch-section">
+                    <h4>Search Batch Number</h4>
+                    <form id="batchForm" class="batch-form">
+                        <input type="text" id="batchInput" name="batchNumber" placeholder="Enter your batch number" required />
+                        <button type="submit">Search</button>
+                        <div id="batchError" style="color: red; margin-top: 5px; font-size: 0.9em;"></div>
+                    </form>
+                </div>
                 <partial name="_BatchModal" />
+            }
             <div class="footer-section">
                 <h4>Client Services</h4>
                 <ul>
@@ -80,6 +87,7 @@
                 <ul>
                     <li><a asp-controller="Science" asp-action="Index">Science</a></li>
                     <li><a asp-controller="OurStory" asp-action="Index">Our Story</a></li>
+                    <li><a asp-controller="BatchLookup" asp-action="Index">Batch Lookup</a></li>
                 </ul>
             </div>
 
@@ -130,17 +138,23 @@
             // Close on load if already too wide
             handleResize();
 
-            // Header background on scroll
             const nav = document.querySelector("header");
+            const currentController = "@ViewContext.RouteData.Values["controller"]?.ToString()";
+
+            if (currentController !== "Home") {
+                nav.classList.add("scrolled-nav");
+            }
+
             window.addEventListener("scroll", () => {
-                if (window.scrollY > 50) {
-                    nav.classList.add("scrolled-nav");
-                } else {
-                    nav.classList.remove("scrolled-nav");
+                if (currentController === "Home") {
+                    if (window.scrollY > 50) {
+                        nav.classList.add("scrolled-nav");
+                    } else {
+                        nav.classList.remove("scrolled-nav");
+                    }
                 }
             });
         
-
             const batchModal = document.getElementById("batchModal");
             const closeBtn = batchModal.querySelector(".custom-modal-close-button");
 

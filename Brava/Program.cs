@@ -1,9 +1,18 @@
+using Brava.DbContext;
 using Brava.Interfaces;
 using Brava.Models;
 using Brava.Repositories;
 using Brava.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("BravaDbContextConnection") ??
+    throw new InvalidOperationException("Connection string 'BravaDbContextConnection' not found");
+
+builder.Services.AddDbContext<BravaDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<BravaDbContext>();
 
 builder.Services.AddControllersWithViews()
     .AddViewOptions(options =>
@@ -12,8 +21,10 @@ builder.Services.AddControllersWithViews()
     });
 builder.Services.AddScoped<IInfoRepository, StaticInfoRepository>();
 builder.Services.AddScoped<InfoService>();
-builder.Services.AddScoped<IGummieRepository, MockGummieRepository>();
-builder.Services.AddScoped<IBatchRepository, MockBatchRepository>();
+builder.Services.AddScoped<IGummieRepository, GummieRepository>();
+//builder.Services.AddScoped<IGummieRepository, MockGummieRepository>();
+builder.Services.AddScoped<IBatchRepository, BatchRepository>();
+//builder.Services.AddScoped<IBatchRepository, MockBatchRepository>();
 
 var app = builder.Build();
 
@@ -32,4 +43,5 @@ app.UseAuthorization();
 
 app.MapDefaultControllerRoute();
 
+DBInitializer.Seed(app);
 app.Run();

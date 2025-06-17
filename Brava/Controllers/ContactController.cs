@@ -9,13 +9,6 @@ namespace Brava.Controllers
     [Route("Contact")]
     public class ContactController : Controller
     {
-        private readonly InfoService _infoService;
-
-        public ContactController(InfoService infoService)
-        {
-            _infoService = infoService;
-        }
-
         [HttpGet]
         public IActionResult Index()
         {

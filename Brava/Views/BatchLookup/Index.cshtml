@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Batch Lookup";
+}
+
+<section class="test-results container py-5">
+    <h1 class="text-center mb-4">Batch Lookup</h1>
+
+    <div class="batch-section text-center">
+        <form id="batchForm" class="batch-form-2 d-inline-block">
+            <input type="text" id="batchInput" name="batchNumber" placeholder="Enter your batch number" required />
+            <button type="submit">Search</button>
+            <div id="batchError" style="color: red; margin-top: 5px; font-size: 0.9em;"></div>
+        </form>
+    </div>
+    <partial name="_BatchModal" />
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const batchModal = document.getElementById("batchModal");
+        const closeBtn = batchModal.querySelector(".custom-modal-close-button");
+
+        function showModal() {
+            batchModal.classList.add("show");
+            batchModal.setAttribute("aria-hidden", "false");
+        }
+
+        function hideModal() {
+            batchModal.classList.remove("show");
+            batchModal.setAttribute("aria-hidden", "true");
+        }
+
+        closeBtn.addEventListener("click", hideModal);
+        batchModal.querySelector(".custom-modal-backdrop").addEventListener("click", hideModal);
+
+        document.getElementById("batchForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const batchNumber = document.getElementById("batchInput").value;
+            const errorDiv = document.getElementById("batchError");
+            errorDiv.textContent = "";
+
+            fetch(`/api/batch?batchNumber=${encodeURIComponent(batchNumber)}`)
+                .then(async response => {
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        errorDiv.textContent = data.error || "An error occurred.";
+                        return;
+                    }
+
+                    errorDiv.textContent = "";
+
+                    document.getElementById("modalBatchNumber").textContent = data.batchNumber;
+                    document.getElementById("modalManufacturedDate").textContent = new Date(data.manufacturedDate).toLocaleDateString();
+                    document.getElementById("modalManufacturedLocation").textContent = data.manufacturedLocation ?? "N/A";
+                    document.getElementById("modalCreatineContent").textContent = data.creatineContent ?? "N/A";
+
+                    showModal();
+                })
+                .catch(err => {
+                    console.error("Error fetching batch:", err);
+                    errorDiv.textContent = "Unexpected error occurred.";
+                });
+        });
+    });
+</script>

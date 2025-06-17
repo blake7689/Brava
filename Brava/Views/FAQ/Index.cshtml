@@ -86,4 +86,30 @@
             });
         });
     </script>
+
+    <script type="application/ld+json">
+    {
+        "@@context": "https://schema.org",
+        "@@type": "FAQPage",
+        "mainEntity": [
+            @foreach (var category in Model)
+            {
+                for (int j = 0; j < category.FAQs.Count; j++)
+                {
+                    var q = category.FAQs[j].Question?.Replace("\"", "\\\"");
+                    var a = category.FAQs[j].Answer?.Replace("\"", "\\\"").Replace("\n", "").Replace("\r", "");
+
+                    @: {
+                    @:   "@@type": "Question",
+                    @:   "name": "@q",
+                    @:   "acceptedAnswer": {
+                    @:     "@@type": "Answer",
+                    @:     "text": "@a"
+                    @:   }
+                    @: }@((category == Model.Last() && j == category.FAQs.Count - 1) ? "" : ",")
+                }
+            }
+        ]
+    }
+    </script>
 }

@@ -75,3 +75,36 @@
       once: true      
     });
 </script>
+
+
+<script type="application/ld+json">
+{
+    "@@context": "https://schema.org",
+    "@@type": "WebPage",
+    "name": "Brava - Science",
+    "url": "https://www.Bravanutrition.com/Science",
+    "description": "@ViewData["heroContent"]",
+    "mainEntity": {
+    "@@type": "Article",
+    "headline": "@ViewData["heroHeader"]",
+    "author": {
+        "@@type": "Organization",
+        "name": "Brava"
+    },
+    "publisher": {
+        "@@type": "Organization",
+        "name": "Brava",
+        "logo": {
+        "@@type": "ImageObject",
+        "url": "https://www.Bravanutrition.com/images/logo-dark.svg"
+        }
+    },
+    "image": [
+        "https://www.Bravanutrition.com/images/science-hydration.jpg",
+        "https://www.Bravanutrition.com/images/science-ingredients.jpg",
+        "https://www.Bravanutrition.com/images/science-research.jpg"
+    ],
+    "articleBody": "@ViewData["section1Content1"] @ViewData["section1Content2"] @ViewData["section2Content1"] @ViewData["section2Content2"] @ViewData["section3Content1"] @ViewData["section3Content2"]"
+    }
+}
+</script>
