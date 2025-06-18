@@ -93,24 +93,6 @@ namespace Brava.Repositories
             return aboutDictionary;
         }
 
-        //public Dictionary<string, string> GetFAQContent()
-        //{
-        //    Dictionary<string, string> faqDictionary = new Dictionary<string, string>();
-        //    faqDictionary.Add("faqHeader", "Frequently Asked Questions");
-        //    faqDictionary.Add("cat1Header", "Shipping");
-        //    faqDictionary.Add("cat1Q1", "Where do you ship?");
-        //    faqDictionary.Add("cat1A1", "We ship worldwide!");
-        //    faqDictionary.Add("cat1Q2", "How long does shipping take?");
-        //    faqDictionary.Add("cat1A2", "3-7 business days depending on your location.");
-        //    faqDictionary.Add("cat2Header", "Returns & Refunds");
-        //    faqDictionary.Add("cat2Q1", "Can I return my order?");
-        //    faqDictionary.Add("cat2A1", "Yes, within 30 days of receipt.");
-        //    faqDictionary.Add("cat2Q2", "How are refunds processed?");
-        //    faqDictionary.Add("cat2A2", "Refunds are credited back to your original payment method.");
-
-        //    return faqDictionary;
-        //}
-
         public Dictionary<string, string> GetPrivacyContent()
         {
             Dictionary<string, string> privacyDictionary = new Dictionary<string, string>();
