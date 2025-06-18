@@ -7,10 +7,13 @@ namespace Brava.Controllers
     public class FAQController : Controller
     {
         private readonly IFAQCategoryRepository _faqCategoryRepository;
+        private readonly ILogger<FAQController> _logger;
 
-        public FAQController( IFAQCategoryRepository faqCategoryRepository)
+
+        public FAQController(IFAQCategoryRepository faqCategoryRepository, ILogger<FAQController> logger)
         {
             _faqCategoryRepository = faqCategoryRepository;
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -21,7 +24,11 @@ namespace Brava.Controllers
                 ViewData["faqHeader"] = "Frequently Asked Questions";
                 return View(categories);
             }
-            catch (Exception) { return View("Error"); }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while retrieving FAQ categories.");
+                return View("Error");
+            }
         }
     }
 }

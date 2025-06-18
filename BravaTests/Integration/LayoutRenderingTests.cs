@@ -1,11 +1,6 @@
 ﻿using AngleSharp.Html.Parser;
-using Brava.DbContext;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.Options;
 using System.Net;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace BravaTests.Integration
 {

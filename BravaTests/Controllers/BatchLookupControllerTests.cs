@@ -1,31 +1,64 @@
 ﻿using Brava.Controllers;
-using Brava.Controllers.Api;
-using BravaTests.Mocks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BravaTests.Controllers
 {
     public class BatchLookupControllerTests
     {
         [Fact]
-        public void Index_ReturnsViewData()
+        public void Index_ReturnsView()
         {
-            //arrange
+            // Arrange
             var mockLogger = new Mock<ILogger<BatchLookupController>>();
-            var batchLookupControler = new BatchLookupController(mockLogger.Object);
+            var batchLookupController = new BatchLookupController(mockLogger.Object);
 
-            //act
-            var result = batchLookupControler.Index();
+            // Act
+            var result = batchLookupController.Index();
 
-            //Assert
+            // Assert
             Assert.IsType<ViewResult>(result);
+        }
+
+        [Fact]
+        public void Index_ReturnsErrorView_OnException()
+        {
+            // Arrange
+            var mockLogger = new Mock<ILogger<BatchLookupController>>();
+            var batchLookupControllerMock = new Mock<BatchLookupController>(mockLogger.Object) { CallBase = true };
+            batchLookupControllerMock.Setup(c => c.View()).Throws(new Exception("View error"));
+
+            // Act
+            var result = batchLookupControllerMock.Object.Index();
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("Error", viewResult.ViewName);
+        }
+
+        [Fact]
+        public void Index_LogsError_OnException()
+        {
+            // Arrange
+            var loggerMock = new Mock<ILogger<BatchLookupController>>();
+            var batchLookupControllerMock = new Mock<BatchLookupController>(loggerMock.Object) { CallBase = true };
+            batchLookupControllerMock.Setup(c => c.View()).Throws(new Exception("View error"));
+
+            // Act
+            batchLookupControllerMock.Object.Index();
+
+            // Assert
+            loggerMock.Verify(
+                l => l.Log(
+                    LogLevel.Error,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("Error in BatchLookupController.Index")),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>()
+                ),
+                Times.Once
+            );
         }
     }
 }

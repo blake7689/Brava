@@ -1,14 +1,8 @@
 ﻿using Brava.Controllers;
-using Brava.Controllers.Api;
 using BravaTests.Mocks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BravaTests.Controllers
 {
@@ -17,23 +11,78 @@ namespace BravaTests.Controllers
         [Fact]
         public void Index_ReturnsViewData()
         {
-            //arrange
+            // Arrange
             var infoService = RepositoryMocks.GetInfoService();
             var mockLogger = new Mock<ILogger<TermsController>>();
             var termsController = new TermsController(infoService, mockLogger.Object);
             var expectedContent = infoService.GetTerms();
 
-            //act
+            // Act
             var result = termsController.Index();
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
-
             foreach (var kvp in expectedContent)
             {
                 Assert.True(viewResult.ViewData.ContainsKey(kvp.Key));
                 Assert.Equal(kvp.Value, viewResult.ViewData[kvp.Key]);
             }
+        }
+
+        [Fact]
+        public void Index_ReturnsView_WhenNoException()
+        {
+            // Arrange
+            var infoService = RepositoryMocks.GetInfoService();
+            var mockLogger = new Mock<ILogger<TermsController>>();
+            var termsController = new TermsController(infoService, mockLogger.Object);
+
+            // Act
+            var result = termsController.Index();
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Null(viewResult.ViewName); // Should return default view
+        }
+
+        [Fact]
+        public void Index_ReturnsErrorView_OnException()
+        {
+            // Arrange
+            var infoService = RepositoryMocks.GetErrorInfoService();
+            var loggerMock = new Mock<ILogger<TermsController>>();
+            var termsController = new TermsController(infoService, loggerMock.Object);
+
+            // Act
+            var result = termsController.Index();
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("Error", viewResult.ViewName);
+        }
+
+        [Fact]
+        public void Index_LogsError_OnException()
+        {
+            // Arrange
+            var infoService = RepositoryMocks.GetErrorInfoService();
+            var loggerMock = new Mock<ILogger<TermsController>>();
+            var termsController = new TermsController(infoService, loggerMock.Object);
+
+            // Act
+            termsController.Index();
+
+            // Assert
+            loggerMock.Verify(
+                l => l.Log(
+                    LogLevel.Error,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("Error retrieving terms content")),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>()
+                ),
+                Times.Once
+            );
         }
     }
 }

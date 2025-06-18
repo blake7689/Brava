@@ -1,15 +1,9 @@
 ﻿using Brava.Controllers;
-using Brava.Interfaces;
 using Brava.Models;
-using Brava.ViewModels;
 using BravaTests.Mocks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BravaTests.Controllers
 {
@@ -20,8 +14,9 @@ namespace BravaTests.Controllers
         {
             //arrange
             var mockFAQCategoryRepository = RepositoryMocks.GetFAQCategoryRepository();
+            var loggerMock = new Mock<ILogger<FAQController>>();
             var expectedCategories = mockFAQCategoryRepository.Object.AllFAQCategories.ToList();
-            var faqController = new FAQController(mockFAQCategoryRepository.Object);
+            var faqController = new FAQController(mockFAQCategoryRepository.Object, loggerMock.Object);
 
             //act
             var result = faqController.Index();
@@ -44,7 +39,8 @@ namespace BravaTests.Controllers
         {
             // Arrange
             var mockFAQCategoryRepository = RepositoryMocks.GetEmptyFAQCategoryRepository();
-            var faqController = new FAQController(mockFAQCategoryRepository.Object);
+            var loggerMock = new Mock<ILogger<FAQController>>();
+            var faqController = new FAQController(mockFAQCategoryRepository.Object, loggerMock.Object);
 
             // Act
             var result = faqController.Index();
@@ -60,7 +56,8 @@ namespace BravaTests.Controllers
         {
             // Arrange
             var mockFAQCategoryRepository = RepositoryMocks.GetNullFAQCategoryRepository();
-            var faqController = new FAQController(mockFAQCategoryRepository.Object);
+            var loggerMock = new Mock<ILogger<FAQController>>();
+            var faqController = new FAQController(mockFAQCategoryRepository.Object, loggerMock.Object);
 
             // Act
             var result = faqController.Index();
@@ -76,7 +73,8 @@ namespace BravaTests.Controllers
         {
             // Arrange 
             var mockFAQCategoryRepository = RepositoryMocks.GetExceptionFAQCategoryRepository();
-            var faqController = new FAQController(mockFAQCategoryRepository.Object);
+            var loggerMock = new Mock<ILogger<FAQController>>();
+            var faqController = new FAQController(mockFAQCategoryRepository.Object, loggerMock.Object);
 
             // Act
             var result = faqController.Index();
@@ -91,7 +89,8 @@ namespace BravaTests.Controllers
         {
             // Arrange
             var mockFAQCategoryRepository = RepositoryMocks.GetFAQCategoryRepository();
-            var faqController = new FAQController(mockFAQCategoryRepository.Object);
+            var loggerMock = new Mock<ILogger<FAQController>>();
+            var faqController = new FAQController(mockFAQCategoryRepository.Object, loggerMock.Object);
 
             // Act
             var result = faqController.Index();
@@ -106,8 +105,9 @@ namespace BravaTests.Controllers
         {
             // Arrange
             var mockFAQCategoryRepository = RepositoryMocks.GetLargeFAQCategoryRepository();
+            var loggerMock = new Mock<ILogger<FAQController>>();
             var expectedCategories = mockFAQCategoryRepository.Object.AllFAQCategories.ToList();
-            var faqController = new FAQController(mockFAQCategoryRepository.Object);
+            var faqController = new FAQController(mockFAQCategoryRepository.Object, loggerMock.Object);
 
             // Act
             var result = faqController.Index();
@@ -128,8 +128,9 @@ namespace BravaTests.Controllers
         {
             // Arrange
             var mockFAQCategoryRepository = RepositoryMocks.GetLargeFAQCategoryRepository();
+            var loggerMock = new Mock<ILogger<FAQController>>();
             var expectedCategories = mockFAQCategoryRepository.Object.AllFAQCategories.ToList();
-            var faqController = new FAQController(mockFAQCategoryRepository.Object);
+            var faqController = new FAQController(mockFAQCategoryRepository.Object, loggerMock.Object);
 
             // Act
             var result = faqController.Index();

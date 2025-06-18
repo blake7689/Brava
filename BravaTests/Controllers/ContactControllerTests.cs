@@ -1,12 +1,9 @@
 ﻿using Brava.Controllers;
 using Brava.Interfaces;
 using Brava.Models;
-using BravaTests.Mocks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using Xunit;
 
 namespace BravaTests.Controllers
 {

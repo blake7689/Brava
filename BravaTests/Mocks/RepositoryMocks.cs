@@ -1,16 +1,7 @@
-﻿using Brava.Controllers;
-using Brava.Interfaces;
+﻿using Brava.Interfaces;
 using Brava.Models;
-using Brava.Repositories;
 using Brava.Services;
-using Microsoft.Extensions.Logging;
 using Moq;
-using NuGet.Protocol.Core.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BravaTests.Mocks
 {
@@ -33,6 +24,13 @@ namespace BravaTests.Mocks
 
             var mockGummieRepository = new Mock<IGummieRepository>();
             mockGummieRepository.Setup(repo => repo.AllGummies).Returns(gummies);
+            return mockGummieRepository;
+        }
+
+        public static Mock<IGummieRepository> GetErrorGummieRepository()
+        {
+            var mockGummieRepository = new Mock<IGummieRepository>();
+            mockGummieRepository.Setup(r => r.AllGummies).Throws(new Exception("DB error"));
             return mockGummieRepository;
         }
 
@@ -194,6 +192,14 @@ namespace BravaTests.Mocks
             return infoService;
         }
 
+        public static InfoService GetErrorInfoService()
+        {
+            var infoRepositoryMock = GetErrorInfoRepository();
+            var infoService = new InfoService(infoRepositoryMock.Object);
+
+            return infoService;
+        }
+
         private static Mock<IInfoRepository> GetInfoRepository()
         {
             Dictionary<string, string> homeContext = GetHomeContent();
@@ -204,15 +210,33 @@ namespace BravaTests.Mocks
 
             var mockInfoRepository = new Mock<IInfoRepository>();
             mockInfoRepository.Setup(repo => repo.GetHomeContent()).Returns(homeContext);
-            mockInfoRepository.Setup(repo => repo.GetScienceContent()).Returns(homeContext);
-            mockInfoRepository.Setup(repo => repo.GetOurStoryContent()).Returns(homeContext);
-            mockInfoRepository.Setup(repo => repo.GetPrivacyContent()).Returns(homeContext);
-            mockInfoRepository.Setup(repo => repo.GetTermsContent()).Returns(homeContext);
+            mockInfoRepository.Setup(repo => repo.GetScienceContent()).Returns(scienceContext);
+            mockInfoRepository.Setup(repo => repo.GetOurStoryContent()).Returns(ourStoryContext);
+            mockInfoRepository.Setup(repo => repo.GetPrivacyContent()).Returns(privacyContent);
+            mockInfoRepository.Setup(repo => repo.GetTermsContent()).Returns(termsContent);
 
             return mockInfoRepository;
         }
 
-        
+        private static Mock<IInfoRepository> GetErrorInfoRepository()
+        {
+            Dictionary<string, string> homeContext = GetHomeContent();
+            Dictionary<string, string> scienceContext = GetScienceContent();
+            Dictionary<string, string> ourStoryContext = GetOurStoryContent();
+            Dictionary<string, string> privacyContent = GetPrivacyContent();
+            Dictionary<string, string> termsContent = GetTermsContent();
+
+            var mockInfoRepository = new Mock<IInfoRepository>();
+            mockInfoRepository.Setup(repo => repo.GetHomeContent()).Throws(new Exception("Test exception"));
+            mockInfoRepository.Setup(repo => repo.GetScienceContent()).Throws(new Exception("Test exception"));
+            mockInfoRepository.Setup(repo => repo.GetOurStoryContent()).Throws(new Exception("Test exception"));
+            mockInfoRepository.Setup(repo => repo.GetPrivacyContent()).Throws(new Exception("Test exception"));
+            mockInfoRepository.Setup(repo => repo.GetTermsContent()).Throws(new Exception("Test exception"));
+
+            return mockInfoRepository;
+        }
+
+
         private static Dictionary<string, string> GetHomeContent()
         {
             Dictionary<string, string> homeDictionary = new Dictionary<string, string>();
