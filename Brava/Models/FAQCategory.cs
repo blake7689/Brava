@@ -2,7 +2,8 @@
 {
     public class FAQCategory
     {
-        public string? Name { get; set; }
-        public List<FAQItem> FAQs { get; set; } = [];
+        public int FAQCategoryId { get; set; }
+        public string Category { get; set; } = string.Empty;
+        public List<FAQItem> FAQItems { get; set; } = new();
     }
 }

@@ -1,18 +1,32 @@
-﻿using Brava.Models;
-using Brava.Services;
+﻿using Brava.Interfaces;
+using Brava.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using System.Net.Mail;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace Brava.Controllers
 {
     [Route("Contact")]
     public class ContactController : Controller
     {
+        private readonly ILogger<ContactController> _logger;
+        private readonly IEmailService _emailService;
+
+        public ContactController(ILogger<ContactController> logger, IEmailService emailService)
+        {
+            _logger = logger;
+            _emailService = emailService;
+        }
+
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            try { return View(); }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error loading contact form.");
+                return View("Error");
+            }
         }
 
         [HttpPost]
@@ -22,23 +36,11 @@ namespace Brava.Controllers
             {
                 try
                 {
-                    var smtpClient = new SmtpClient("smtp.gmail.com")
-                    {
-                        Port = 587,
-                        Credentials = new NetworkCredential("bravanutrients@gmail.com", "wgwo vqlf hilj auew"),
-                        EnableSsl = true,
-                    };
-
-                    var mail = new MailMessage
-                    {
-                        From = new MailAddress("bravanutrients@gmail.com"),
-                        Subject = "Brava Contact Form Submission",
-                        Body = $"Name: {model.Name}\nEmail: {model.Email}\nMessage:\n{model.Message}",
-                        IsBodyHtml = false
-                    };
-
-                    mail.To.Add("bravanutrients@gmail.com");
-                    smtpClient.Send(mail);
+                    _emailService.Send(
+                        "bravanutrients@gmail.com",
+                        "Brava Contact Form Submission",
+                        $"Name: {model.Name}\nEmail: {model.Email}\nMessage:\n{model.Message}"
+                    );
 
                     ViewBag.Message = "Your message has been sent!";
                     ModelState.Clear();
@@ -50,7 +52,12 @@ namespace Brava.Controllers
                 }
             }
 
-            return View(model);
+            try { return View(model); }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error processing contact form submission.");
+                return View("Error");
+            }
         }
     }
 }

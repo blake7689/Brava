@@ -1,8 +1,11 @@
 ﻿using Brava.Controllers;
+using Brava.Controllers.Api;
 using Brava.Services;
 using Brava.ViewModels;
 using BravaTests.Mocks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +19,16 @@ namespace BravaTests.Controllers
         [Fact]
         public void Index_ReturnsGummie()
         {
-            //arrange
+            //arrange  
             var mockGummieRepository = RepositoryMocks.GetGummieRepository();
+            var mockLogger = new Mock<ILogger<HomeController>>(); 
             var infoService = RepositoryMocks.GetInfoService();
-            var homeController = new HomeController(mockGummieRepository.Object, infoService);
+            var homeController = new HomeController(mockGummieRepository.Object, infoService, mockLogger.Object);
 
-            //act
+            //act  
             var result = homeController.Index();
 
-            //assert
+            //assert  
             var viewResult = Assert.IsType<ViewResult>(result);
             var homeViewModel = Assert.IsAssignableFrom<HomeViewModel>(viewResult.ViewData.Model);
             Assert.Single(homeViewModel.Gummies);
@@ -33,16 +37,17 @@ namespace BravaTests.Controllers
         [Fact]
         public void Index_ReturnsViewData()
         {
-            //arrange
+            //arrange  
             var mockGummieRepository = RepositoryMocks.GetGummieRepository();
             var infoService = RepositoryMocks.GetInfoService();
-            var homeController = new HomeController(mockGummieRepository.Object, infoService);
+            var mockLogger = new Mock<ILogger<HomeController>>(); 
+            var homeController = new HomeController(mockGummieRepository.Object, infoService, mockLogger.Object);
             var expectedContent = infoService.GetHome();
 
-            //act
+            //act  
             var result = homeController.Index();
 
-            // Assert
+            // Assert  
             var viewResult = Assert.IsType<ViewResult>(result);
 
             foreach (var kvp in expectedContent)

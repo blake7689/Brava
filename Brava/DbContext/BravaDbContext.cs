@@ -11,7 +11,8 @@ namespace Brava.DbContext
         }
 
         public DbSet<Gummie> Gummies { get; set; }
-
         public DbSet<Batch> Batches { get; set; }
+        public DbSet<FAQItem> FAQItems { get; set; }
+        public DbSet<FAQCategory> FAQCategories { get; set; }
     }
 }

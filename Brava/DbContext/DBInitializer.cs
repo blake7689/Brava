@@ -74,6 +74,72 @@ namespace Brava.DbContext
             }
 
             context.SaveChanges();
+            context.Dispose();
+            context = applicationBuilder.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<BravaDbContext>();
+
+            if (!context.FAQCategories.Any())
+            {
+                context.FAQCategories.AddRange(FAQCategories.Select(c => c.Value));   
+            }
+
+            if (!context.FAQItems.Any())
+            {
+                context.FAQItems.AddRange
+                (
+                    new FAQItem
+                    {
+                        Question = "Where do you ship?",
+                        Answer = "We ship worldwide!",
+                        FAQCategory = FAQCategories["Shipping"]
+                    },
+                    new FAQItem
+                    {
+                        Question = "How long does shipping take?",
+                        Answer = "3-7 business days depending on your location.",
+                        FAQCategory = FAQCategories["Shipping"]
+                    },
+                    new FAQItem
+                    {
+                        Question = "Can I return my order?",
+                        Answer = "Yes, within 30 days of receipt.",
+                        FAQCategory = FAQCategories["Returns & Refunds"]
+                    },
+                    new FAQItem
+                    {
+                        Question = "How are refunds processed?",
+                        Answer = "Refunds are credited back to your original payment method.",
+                        FAQCategory = FAQCategories["Returns & Refunds"]
+                    }
+                );
+            }
+
+            context.SaveChanges();
+        }
+
+        private static Dictionary<string, FAQCategory>? faqCategories;
+
+        public static Dictionary<string, FAQCategory> FAQCategories
+        {
+            get
+            {
+                if (faqCategories == null)
+                {
+                    var genresList = new FAQCategory[]
+                    {
+                        new FAQCategory { Category = "Shipping" },
+                        new FAQCategory { Category = "Returns & Refunds" }
+                    };
+
+                    faqCategories = new Dictionary<string, FAQCategory>();
+
+                    foreach (FAQCategory genre in genresList)
+                    {
+                        FAQCategories.Add(genre.Category, genre);
+                    }
+                }
+
+                return faqCategories;
+            }
         }
     }
 }

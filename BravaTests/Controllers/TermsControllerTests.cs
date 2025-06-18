@@ -1,6 +1,9 @@
 ﻿using Brava.Controllers;
+using Brava.Controllers.Api;
 using BravaTests.Mocks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +19,8 @@ namespace BravaTests.Controllers
         {
             //arrange
             var infoService = RepositoryMocks.GetInfoService();
-            var termsController = new TermsController(infoService);
+            var mockLogger = new Mock<ILogger<TermsController>>();
+            var termsController = new TermsController(infoService, mockLogger.Object);
             var expectedContent = infoService.GetTerms();
 
             //act

@@ -1,6 +1,9 @@
 ﻿using Brava.Controllers;
+using Brava.Controllers.Api;
 using BravaTests.Mocks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +18,8 @@ namespace BravaTests.Controllers
         public void Index_ReturnsViewData()
         {
             //arrange
-            var batchLookupControler = new BatchLookupController();
+            var mockLogger = new Mock<ILogger<BatchLookupController>>();
+            var batchLookupControler = new BatchLookupController(mockLogger.Object);
 
             //act
             var result = batchLookupControler.Index();

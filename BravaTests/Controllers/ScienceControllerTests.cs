@@ -1,7 +1,10 @@
 ﻿using Brava.Controllers;
+using Brava.Controllers.Api;
 using Brava.ViewModels;
 using BravaTests.Mocks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +20,8 @@ namespace BravaTests.Controllers
         {
             //arrange
             var infoService = RepositoryMocks.GetInfoService();
-            var scienceController = new ScienceController(infoService);
+            var mockLogger = new Mock<ILogger<ScienceController>>();
+            var scienceController = new ScienceController(infoService, mockLogger.Object);
             var expectedContent = infoService.GetScience();
 
             //act

@@ -1,7 +1,9 @@
-﻿using Brava.Interfaces;
+﻿using Brava.Controllers;
+using Brava.Interfaces;
 using Brava.Models;
 using Brava.Repositories;
 using Brava.Services;
+using Microsoft.Extensions.Logging;
 using Moq;
 using NuGet.Protocol.Core.Types;
 using System;
@@ -32,6 +34,112 @@ namespace BravaTests.Mocks
             var mockGummieRepository = new Mock<IGummieRepository>();
             mockGummieRepository.Setup(repo => repo.AllGummies).Returns(gummies);
             return mockGummieRepository;
+        }
+
+        public static Mock<IFAQItemRepository> GetFAQItemRepository()
+        {
+            var faqItems = new List<FAQItem>
+            {
+                new FAQItem {
+                    FAQItemId = 1,
+                    Question = "Where do you ship?",
+                    Answer = "We ship worldwide!",
+                    FAQCategory = new FAQCategory { FAQCategoryId = 1, Category = "Shipping" }
+                },
+                new FAQItem
+                {
+                    FAQItemId = 2,
+                    Question = "How long does shipping take?",
+                    Answer = "3-7 business days depending on your location.",
+                    FAQCategory = new FAQCategory { FAQCategoryId = 1, Category = "Shipping" }
+                },
+                new FAQItem
+                {
+                    FAQItemId = 3,
+                    Question = "Can I return my order?",
+                    Answer = "Yes, within 30 days of receipt.",
+                    FAQCategory = new FAQCategory { FAQCategoryId = 2, Category = "Returns & Refunds" }
+                },
+                new FAQItem
+                {
+                    FAQItemId = 4,
+                    Question = "How are refunds processed?",
+                    Answer = "Refunds are credited back to your original payment method.",
+                    FAQCategory = new FAQCategory { FAQCategoryId = 2, Category = "Returns & Refunds" }
+                }
+            };
+
+            var mockFAQItemRepository = new Mock<IFAQItemRepository>();
+            mockFAQItemRepository.Setup(repo => repo.AllFAQItems).Returns(faqItems);
+            return mockFAQItemRepository;
+        }
+
+        public static Mock<IFAQCategoryRepository> GetFAQCategoryRepository()
+        {
+            var faqCategories = new List<FAQCategory>
+            {
+                new FAQCategory { FAQCategoryId = 1, Category = "Shipping" },
+                new FAQCategory { FAQCategoryId = 2, Category = "Returns & Refunds" }
+            };
+
+            var mockFAQCategoryRepository = new Mock<IFAQCategoryRepository>();
+            mockFAQCategoryRepository.Setup(repo => repo.AllFAQCategories).Returns(faqCategories);
+            return mockFAQCategoryRepository;
+        }
+
+        public static Mock<IFAQCategoryRepository> GetEmptyFAQCategoryRepository()
+        {
+            var mockFAQCategoryRepository = new Mock<IFAQCategoryRepository>();
+            mockFAQCategoryRepository.Setup(r => r.AllFAQCategories).Returns(new List<FAQCategory>());
+            return mockFAQCategoryRepository;
+        }
+
+        public static Mock<IFAQCategoryRepository> GetNullFAQCategoryRepository()
+        {
+            var mockFAQCategoryRepository = new Mock<IFAQCategoryRepository>();
+            mockFAQCategoryRepository.Setup(r => r.AllFAQCategories).Returns((List<FAQCategory>)null);
+            return mockFAQCategoryRepository;
+        }
+
+        public static Mock<IFAQCategoryRepository> GetExceptionFAQCategoryRepository()
+        {
+            var mockFAQCategoryRepository = new Mock<IFAQCategoryRepository>();
+            mockFAQCategoryRepository.Setup(r => r.AllFAQCategories).Throws(new Exception("DB error"));
+            return mockFAQCategoryRepository;
+        }
+
+        public static Mock<IFAQCategoryRepository> GetLargeFAQCategoryRepository()
+        {
+            var largeCategoryList = new List<FAQCategory>();
+            for (int i = 1; i <= 1000; i++)
+            {
+                largeCategoryList.Add(new FAQCategory
+                {
+                    FAQCategoryId = i,
+                    Category = $"Category {i}"
+                });
+            }
+
+            var mockFAQCategoryRepository = new Mock<IFAQCategoryRepository>();
+            mockFAQCategoryRepository.Setup(r => r.AllFAQCategories).Returns(largeCategoryList);
+            return mockFAQCategoryRepository;
+        }
+
+        public static Mock<IFAQCategoryRepository> GetSpecialCharFAQCategoryRepository()
+        {
+            var specialCategories = new List<FAQCategory>
+            {
+                new FAQCategory { FAQCategoryId = 1, Category = "Café & Thé" },
+                new FAQCategory { FAQCategoryId = 2, Category = "Überraschung!" },
+                new FAQCategory { FAQCategoryId = 3, Category = "中文类别" },
+                new FAQCategory { FAQCategoryId = 4, Category = "Категория" },
+                new FAQCategory { FAQCategoryId = 5, Category = "Espaço & Ciência" },
+                new FAQCategory { FAQCategoryId = 6, Category = "Emoji 😀🚀" }
+            };
+
+            var mockFAQCategoryRepository = new Mock<IFAQCategoryRepository>();
+            mockFAQCategoryRepository.Setup(r => r.AllFAQCategories).Returns(specialCategories);
+            return mockFAQCategoryRepository;
         }
 
         public static Mock<IBatchRepository> GetBatchRepository(int id = 1, string batchNumber = "1234A")
@@ -73,8 +181,8 @@ namespace BravaTests.Mocks
 
             var mockBatchRepository = new Mock<IBatchRepository>();
             mockBatchRepository.Setup(repo => repo.AllBatches).Returns(batches);
-            mockBatchRepository.Setup(repo => repo.GetBatchById(id)).Returns(batches.FirstOrDefault(c => c.BatchID == id, null));
-            mockBatchRepository.Setup(repo => repo.GetBatchByBatchNumber(batchNumber)).Returns(batches.FirstOrDefault(c => c.BatchNumber.Equals(batchNumber, StringComparison.CurrentCultureIgnoreCase), null));
+            mockBatchRepository.Setup(repo => repo.GetBatchById(id)).Returns(batches.FirstOrDefault(c => c.BatchID == id));
+            mockBatchRepository.Setup(repo => repo.GetBatchByBatchNumber(It.IsAny<string>())).Returns((string bn) => batches.FirstOrDefault(c => c.BatchNumber.Equals(bn, StringComparison.CurrentCultureIgnoreCase)));
             return mockBatchRepository;
         }
 
@@ -91,7 +199,6 @@ namespace BravaTests.Mocks
             Dictionary<string, string> homeContext = GetHomeContent();
             Dictionary<string, string> scienceContext = GetScienceContent();
             Dictionary<string, string> ourStoryContext = GetOurStoryContent();
-            Dictionary<string, string> faqContent = GetFAQContent();
             Dictionary<string, string> privacyContent = GetPrivacyContent();
             Dictionary<string, string> termsContent = GetTermsContent();
 
@@ -99,7 +206,6 @@ namespace BravaTests.Mocks
             mockInfoRepository.Setup(repo => repo.GetHomeContent()).Returns(homeContext);
             mockInfoRepository.Setup(repo => repo.GetScienceContent()).Returns(homeContext);
             mockInfoRepository.Setup(repo => repo.GetOurStoryContent()).Returns(homeContext);
-            mockInfoRepository.Setup(repo => repo.GetFAQContent()).Returns(homeContext);
             mockInfoRepository.Setup(repo => repo.GetPrivacyContent()).Returns(homeContext);
             mockInfoRepository.Setup(repo => repo.GetTermsContent()).Returns(homeContext);
 
@@ -194,25 +300,6 @@ namespace BravaTests.Mocks
             aboutDictionary.Add("values3Content", "Eco-friendly practices and packaging to protect the planet.");
 
             return aboutDictionary;
-        }
-
-        private static Dictionary<string, string> GetFAQContent()
-        {
-            //change when DB is implemented//
-            Dictionary<string, string> faqDictionary = new Dictionary<string, string>();
-            faqDictionary.Add("faqHeader", "Frequently Asked Questions");
-            faqDictionary.Add("cat1Header", "Shipping");
-            faqDictionary.Add("cat1Q1", "Where do you ship?");
-            faqDictionary.Add("cat1A1", "We ship worldwide!");
-            faqDictionary.Add("cat1Q2", "How long does shipping take?");
-            faqDictionary.Add("cat1A2", "3-7 business days depending on your location.");
-            faqDictionary.Add("cat2Header", "Returns & Refunds");
-            faqDictionary.Add("cat2Q1", "Can I return my order?");
-            faqDictionary.Add("cat2A1", "Yes, within 30 days of receipt.");
-            faqDictionary.Add("cat2Q2", "How are refunds processed?");
-            faqDictionary.Add("cat2A2", "Refunds are credited back to your original payment method.");
-
-            return faqDictionary;
         }
 
         private static Dictionary<string, string> GetPrivacyContent()

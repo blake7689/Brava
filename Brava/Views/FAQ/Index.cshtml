@@ -5,8 +5,6 @@
     Layout = "_Layout";
 }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-
 <div class="container mt-5">
     <h2 class="text-center mb-4">@ViewData["faqHeader"]</h2>
 
@@ -22,7 +20,7 @@
                 {
                     var catId = $"category-{i}";
                     <a href="#@catId" class="list-group-item list-group-item-action" onclick="scrollToCategory('@catId')">
-                        @Model[i].Name
+                        @Model[i].Category
                     </a>
                 }
             </div>
@@ -35,11 +33,11 @@
                 var category = Model[i];
                 var catId = $"category-{i}";
                 <div class="mb-5 faq-category" id="@catId">
-                    <h4 class="mb-3">@category.Name</h4>
+                    <h4 class="mb-3">@category.Category</h4>
                     <div class="accordion" id="accordion-@i">
-                        @for (int j = 0; j < category.FAQs.Count; j++)
+                        @for (int j = 0; j < category.FAQItems.Count; j++)
                         {
-                            var faq = category.FAQs[j];
+                            var faq = category.FAQItems[j];
                             var faqId = $"faq-{i}-{j}";
                             <div class="accordion-item faq-item">
                                 <h2 class="accordion-header" id="heading-@faqId">
@@ -94,10 +92,10 @@
         "mainEntity": [
             @foreach (var category in Model)
             {
-                for (int j = 0; j < category.FAQs.Count; j++)
+                for (int j = 0; j < category.FAQItems.Count; j++)
                 {
-                    var q = category.FAQs[j].Question?.Replace("\"", "\\\"");
-                    var a = category.FAQs[j].Answer?.Replace("\"", "\\\"").Replace("\n", "").Replace("\r", "");
+                    var q = category.FAQItems[j].Question?.Replace("\"", "\\\"");
+                    var a = category.FAQItems[j].Answer?.Replace("\"", "\\\"").Replace("\n", "").Replace("\r", "");
 
                     @: {
                     @:   "@@type": "Question",
@@ -106,7 +104,7 @@
                     @:     "@@type": "Answer",
                     @:     "text": "@a"
                     @:   }
-                    @: }@((category == Model.Last() && j == category.FAQs.Count - 1) ? "" : ",")
+                        @: }@((category == Model.Last() && j == category.FAQItems.Count - 1) ? "" : ",")
                 }
             }
         ]

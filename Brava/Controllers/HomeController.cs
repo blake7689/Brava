@@ -1,13 +1,9 @@
+using Brava.Controllers.Api;
 using Brava.Interfaces;
 using Brava.Models;
 using Brava.Services;
 using Brava.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.Extensions.Configuration;
-using System.Diagnostics;
-using System.Net;
-using System.Net.Mail;
 
 namespace Brava.Controllers
 {
@@ -15,24 +11,34 @@ namespace Brava.Controllers
     {
         private readonly IGummieRepository _gummieRepository;
         private readonly InfoService _infoService;
+        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(IGummieRepository gummieRepository, InfoService infoService)
+        public HomeController(IGummieRepository gummieRepository, InfoService infoService, ILogger<HomeController> logger)
         {
             _gummieRepository = gummieRepository;
             _infoService = infoService;
+            _logger = logger;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Gummie> gummies = _gummieRepository.AllGummies.OrderBy(c => c.GummieID);
-            HomeViewModel homeViewModel = new(gummies);
+            try
+            {
+                IEnumerable<Gummie> gummies = _gummieRepository.AllGummies.OrderBy(c => c.GummieID);
+                HomeViewModel homeViewModel = new(gummies);
 
-            Dictionary<string, string> homeContent = _infoService.GetHome();
+                Dictionary<string, string> homeContent = _infoService.GetHome();
 
-            foreach (KeyValuePair<string, string> content in homeContent)
-                ViewData[content.Key] = content.Value;
+                foreach (KeyValuePair<string, string> content in homeContent)
+                    ViewData[content.Key] = content.Value;
 
-            return View(homeViewModel);
+                return View(homeViewModel);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while loading the home page.");
+                return View("Error");
+            }
         }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using Brava.Controllers;
+using Brava.Controllers.Api;
 using BravaTests.Mocks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +19,8 @@ namespace BravaTests.Controllers
         {
             //arrange
             var infoService = RepositoryMocks.GetInfoService();
-            var privacyController = new PrivacyController(infoService);
+            var mockLogger = new Mock<ILogger<PrivacyController>>();
+            var privacyController = new PrivacyController(infoService, mockLogger.Object);
             var expectedContent = infoService.GetPrivacy();
 
             //act
@@ -24,7 +28,6 @@ namespace BravaTests.Controllers
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
-
             foreach (var kvp in expectedContent)
             {
                 Assert.True(viewResult.ViewData.ContainsKey(kvp.Key));
