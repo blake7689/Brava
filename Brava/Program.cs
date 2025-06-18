@@ -32,6 +32,7 @@ builder.Services.AddScoped<IBatchRepository, BatchRepository>();
 //builder.Services.AddScoped<IBatchRepository, MockBatchRepository>();
 builder.Services.AddScoped<IFAQItemRepository, FAQItemRepository>();
 builder.Services.AddScoped<IFAQCategoryRepository, FAQCategoryRepository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 var app = builder.Build();
 
@@ -54,3 +55,5 @@ app.MapDefaultControllerRoute();
 DBInitializer.Seed(app);
 
 app.Run();
+
+public partial class Program { }

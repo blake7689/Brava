@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Mail;
 
-public class SmtpEmailService : IEmailService
+public class EmailService : IEmailService
 {
     public void Send(string to, string subject, string body)
     {
