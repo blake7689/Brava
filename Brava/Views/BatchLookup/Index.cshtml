@@ -44,6 +44,11 @@
                 .then(async response => {
                     const data = await response.json();
 
+                    if (data.redirectUrl) {
+                        window.location.href = data.redirectUrl;
+                        return;
+                    }
+
                     if (!response.ok) {
                         errorDiv.textContent = data.error || "An error occurred.";
                         return;

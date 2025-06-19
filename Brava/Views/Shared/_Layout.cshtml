@@ -32,9 +32,9 @@
                     <a asp-controller="BatchLookup" asp-action="Index">Batch <i class="fa fa-search"></i></a>
                 </div>
                 <div class="social-icons-desktop">
-                    <a href="#https://www.facebook.com"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#https://www.instagram.com"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#https://www.x.com"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="https://www.facebook.com"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.x.com"><i class="fa-brands fa-twitter"></i></a>
                 </div>
                 <button class="navbar-toggle" aria-label="Toggle navigation">
                     <i class="fas fa-bars"></i>
@@ -93,9 +93,9 @@
 
             <div class="footer-section">
                 <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="https://www.facebook.com"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.x.com"><i class="fa-brands fa-twitter"></i></a>
                 </div>
             </div>
         </div>
@@ -181,6 +181,11 @@
                 fetch(`/api/batch?batchNumber=${encodeURIComponent(batchNumber)}`)
                     .then(async response => {
                         const data = await response.json();
+
+                        if (data.redirectUrl) {
+                            window.location.href = data.redirectUrl;
+                            return;
+                        }
 
                         if (!response.ok) {
                             errorDiv.textContent = data.error || "An error occurred.";

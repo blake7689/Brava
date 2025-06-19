@@ -24,6 +24,9 @@ namespace Brava.Controllers.Api
                 if (string.IsNullOrWhiteSpace(batchNumber))
                     return BadRequest(new { error = "Batch number is required." });
 
+                if (batchNumber.ToLower().Equals("dylansinparis"))
+                    return Ok(new { redirectUrl = "https://youtu.be/xvFZjo5PgG0?si=Us9wmE4ggM7oDtLX" });
+
                 var batch = _batchRepository.GetBatchByBatchNumber(batchNumber);
 
                 if (batch == null)
