@@ -12,7 +12,7 @@ namespace BravaTests.Controllers
         [Fact]
         public void GetBatchJson_ReturnsBadRequest_WhenBatchNumberIsNullOrEmpty()
         {
-            var mockBatchRepository = RepositoryMocks.GetBatchRepository();
+            var mockBatchRepository = BatchRepositoryMocks.GetBatchRepository();
             var mockLogger = new Mock<ILogger<BatchController>>();
             var batchController = new BatchController(mockBatchRepository.Object, mockLogger.Object);
 
@@ -29,7 +29,7 @@ namespace BravaTests.Controllers
         [Fact]
         public void GetBatchJson_ReturnsNotFound_WhenBatchDoesNotExist()
         {
-            var mockBatchRepository = RepositoryMocks.GetBatchRepository();
+            var mockBatchRepository = BatchRepositoryMocks.GetBatchRepository();
             var mockLogger = new Mock<ILogger<BatchController>>();
             var batchController = new BatchController(mockBatchRepository.Object, mockLogger.Object);
 
@@ -43,7 +43,7 @@ namespace BravaTests.Controllers
         [Fact]
         public void GetBatchJson_ReturnsJsonResult_WhenBatchExists()
         {
-            var mockBatchRepository = RepositoryMocks.GetBatchRepository();
+            var mockBatchRepository = BatchRepositoryMocks.GetBatchRepository();
             var mockLogger = new Mock<ILogger<BatchController>>();
             var batchController = new BatchController(mockBatchRepository.Object, mockLogger.Object);
 
@@ -57,7 +57,7 @@ namespace BravaTests.Controllers
         [Fact]
         public void GetBatchJson_IsCaseInsensitive_ForBatchNumber()
         {
-            var mockBatchRepository = RepositoryMocks.GetBatchRepository();
+            var mockBatchRepository = BatchRepositoryMocks.GetBatchRepository();
             var mockLogger = new Mock<ILogger<BatchController>>();
             var batchController = new BatchController(mockBatchRepository.Object, mockLogger.Object);
 
@@ -71,7 +71,7 @@ namespace BravaTests.Controllers
         [Fact]
         public void GetBatchJson_ReturnsCorrectBatch_ForDifferentBatchNumbers()
         {
-            var mockBatchRepository = RepositoryMocks.GetBatchRepository();
+            var mockBatchRepository = BatchRepositoryMocks.GetBatchRepository();
             var mockLogger = new Mock<ILogger<BatchController>>();
             var batchController = new BatchController(mockBatchRepository.Object, mockLogger.Object);
 

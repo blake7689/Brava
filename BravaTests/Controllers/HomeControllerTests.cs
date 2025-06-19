@@ -13,9 +13,9 @@ namespace BravaTests.Controllers
         public void Index_ReturnsView_WithHomeViewModel_AndViewData()
         {
             // Arrange
-            var infoService = RepositoryMocks.GetInfoService();
+            var infoService = InfoServiceMocks.GetInfoService();
             var loggerMock = new Mock<ILogger<HomeController>>();
-            var mockGummieRepository = RepositoryMocks.GetGummieRepository();
+            var mockGummieRepository = GummieRepositoryMocks.GetGummieRepository();
             var homeController = new HomeController(mockGummieRepository.Object, infoService, loggerMock.Object);
 
             // Act
@@ -40,9 +40,9 @@ namespace BravaTests.Controllers
         public void Index_ReturnsErrorView_OnException_GummieRepository()
         {
             // Arrange
-            var infoService = RepositoryMocks.GetInfoService();
+            var infoService = InfoServiceMocks.GetInfoService();
             var loggerMock = new Mock<ILogger<HomeController>>();
-            var mockGummieRepository = RepositoryMocks.GetErrorGummieRepository();
+            var mockGummieRepository = GummieRepositoryMocks.GetErrorGummieRepository();
             var homeController = new HomeController(mockGummieRepository.Object, infoService, loggerMock.Object);
 
             // Act
@@ -57,9 +57,9 @@ namespace BravaTests.Controllers
         public void Index_ReturnsErrorView_OnException_InfoService()
         {
             // Arrange
-            var infoService = RepositoryMocks.GetErrorInfoService();
+            var infoService = InfoServiceMocks.GetErrorInfoService();
             var loggerMock = new Mock<ILogger<HomeController>>();
-            var mockGummieRepository = RepositoryMocks.GetGummieRepository();
+            var mockGummieRepository = GummieRepositoryMocks.GetGummieRepository();
             var controller = new HomeController(mockGummieRepository.Object, infoService, loggerMock.Object);
 
             // Act
@@ -74,9 +74,9 @@ namespace BravaTests.Controllers
         public void Index_LogsError_OnException_InfoService()
         {
             // Arrange
-            var infoService = RepositoryMocks.GetErrorInfoService();
+            var infoService = InfoServiceMocks.GetErrorInfoService();
             var loggerMock = new Mock<ILogger<HomeController>>();
-            var mockGummieRepository = RepositoryMocks.GetGummieRepository();
+            var mockGummieRepository = GummieRepositoryMocks.GetGummieRepository();
             var controller = new HomeController(mockGummieRepository.Object, infoService, loggerMock.Object);
 
             // Act

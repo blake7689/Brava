@@ -12,7 +12,7 @@ namespace BravaTests.Controllers
         public void Index_ReturnsViewData()
         {
             // Arrange
-            var infoService = RepositoryMocks.GetInfoService();
+            var infoService = InfoServiceMocks.GetInfoService();
             var mockLogger = new Mock<ILogger<OurStoryController>>();
             var ourStoryController = new OurStoryController(infoService, mockLogger.Object);
             var expectedContent = infoService.GetOurStory();
@@ -33,7 +33,7 @@ namespace BravaTests.Controllers
         public void Index_ReturnsView_WhenNoException()
         {
             // Arrange
-            var infoService = RepositoryMocks.GetInfoService();
+            var infoService = InfoServiceMocks.GetInfoService();
             var mockLogger = new Mock<ILogger<OurStoryController>>();
             var controller = new OurStoryController(infoService, mockLogger.Object);
 
@@ -49,7 +49,7 @@ namespace BravaTests.Controllers
         public void Index_ReturnsErrorView_OnException()
         {
             // Arrange
-            var infoService = RepositoryMocks.GetErrorInfoService();
+            var infoService = InfoServiceMocks.GetErrorInfoService();
             var loggerMock = new Mock<ILogger<OurStoryController>>();
             var controller = new OurStoryController(infoService, loggerMock.Object);
 
@@ -65,7 +65,7 @@ namespace BravaTests.Controllers
         public void Index_LogsError_OnException()
         {
             // Arrange
-            var infoService = RepositoryMocks.GetErrorInfoService();
+            var infoService = InfoServiceMocks.GetErrorInfoService();
             var loggerMock = new Mock<ILogger<OurStoryController>>();
             var controller = new OurStoryController(infoService, loggerMock.Object);
 

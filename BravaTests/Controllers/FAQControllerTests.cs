@@ -13,7 +13,7 @@ namespace BravaTests.Controllers
         public void Index_ReturnsCategories_WhenGivenCategories()
         {
             //arrange
-            var mockFAQCategoryRepository = RepositoryMocks.GetFAQCategoryRepository();
+            var mockFAQCategoryRepository = FAQRepositoryMocks.GetFAQCategoryRepository();
             var loggerMock = new Mock<ILogger<FAQController>>();
             var expectedCategories = mockFAQCategoryRepository.Object.AllFAQCategories.ToList();
             var faqController = new FAQController(mockFAQCategoryRepository.Object, loggerMock.Object);
@@ -38,7 +38,7 @@ namespace BravaTests.Controllers
         public void Index_ReturnsEmptyList_WhenNoCategoriesExist()
         {
             // Arrange
-            var mockFAQCategoryRepository = RepositoryMocks.GetEmptyFAQCategoryRepository();
+            var mockFAQCategoryRepository = FAQRepositoryMocks.GetEmptyFAQCategoryRepository();
             var loggerMock = new Mock<ILogger<FAQController>>();
             var faqController = new FAQController(mockFAQCategoryRepository.Object, loggerMock.Object);
 
@@ -55,7 +55,7 @@ namespace BravaTests.Controllers
         public void Index_ReturnsEmptyList_WhenRepositoryReturnsNull()
         {
             // Arrange
-            var mockFAQCategoryRepository = RepositoryMocks.GetNullFAQCategoryRepository();
+            var mockFAQCategoryRepository = FAQRepositoryMocks.GetNullFAQCategoryRepository();
             var loggerMock = new Mock<ILogger<FAQController>>();
             var faqController = new FAQController(mockFAQCategoryRepository.Object, loggerMock.Object);
 
@@ -72,7 +72,7 @@ namespace BravaTests.Controllers
         public void Index_ReturnsErrorView_WhenRepositoryThrows()
         {
             // Arrange 
-            var mockFAQCategoryRepository = RepositoryMocks.GetExceptionFAQCategoryRepository();
+            var mockFAQCategoryRepository = FAQRepositoryMocks.GetExceptionFAQCategoryRepository();
             var loggerMock = new Mock<ILogger<FAQController>>();
             var faqController = new FAQController(mockFAQCategoryRepository.Object, loggerMock.Object);
 
@@ -88,7 +88,7 @@ namespace BravaTests.Controllers
         public void Index_SetsFaqHeaderInViewData()
         {
             // Arrange
-            var mockFAQCategoryRepository = RepositoryMocks.GetFAQCategoryRepository();
+            var mockFAQCategoryRepository = FAQRepositoryMocks.GetFAQCategoryRepository();
             var loggerMock = new Mock<ILogger<FAQController>>();
             var faqController = new FAQController(mockFAQCategoryRepository.Object, loggerMock.Object);
 
@@ -104,7 +104,7 @@ namespace BravaTests.Controllers
         public void Index_ReturnsAllCategories_WithLargeDataset()
         {
             // Arrange
-            var mockFAQCategoryRepository = RepositoryMocks.GetLargeFAQCategoryRepository();
+            var mockFAQCategoryRepository = FAQRepositoryMocks.GetLargeFAQCategoryRepository();
             var loggerMock = new Mock<ILogger<FAQController>>();
             var expectedCategories = mockFAQCategoryRepository.Object.AllFAQCategories.ToList();
             var faqController = new FAQController(mockFAQCategoryRepository.Object, loggerMock.Object);
@@ -127,7 +127,7 @@ namespace BravaTests.Controllers
         public void Index_ReturnsCategories_WithSpecialCharacters()
         {
             // Arrange
-            var mockFAQCategoryRepository = RepositoryMocks.GetLargeFAQCategoryRepository();
+            var mockFAQCategoryRepository = FAQRepositoryMocks.GetLargeFAQCategoryRepository();
             var loggerMock = new Mock<ILogger<FAQController>>();
             var expectedCategories = mockFAQCategoryRepository.Object.AllFAQCategories.ToList();
             var faqController = new FAQController(mockFAQCategoryRepository.Object, loggerMock.Object);

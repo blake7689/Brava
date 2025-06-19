@@ -12,7 +12,7 @@ namespace BravaTests.Controllers
         public void Index_ReturnsViewData()
         {
             // Arrange
-            var infoService = RepositoryMocks.GetInfoService();
+            var infoService = InfoServiceMocks.GetInfoService();
             var mockLogger = new Mock<ILogger<TermsController>>();
             var termsController = new TermsController(infoService, mockLogger.Object);
             var expectedContent = infoService.GetTerms();
@@ -33,7 +33,7 @@ namespace BravaTests.Controllers
         public void Index_ReturnsView_WhenNoException()
         {
             // Arrange
-            var infoService = RepositoryMocks.GetInfoService();
+            var infoService = InfoServiceMocks.GetInfoService();
             var mockLogger = new Mock<ILogger<TermsController>>();
             var termsController = new TermsController(infoService, mockLogger.Object);
 
@@ -49,7 +49,7 @@ namespace BravaTests.Controllers
         public void Index_ReturnsErrorView_OnException()
         {
             // Arrange
-            var infoService = RepositoryMocks.GetErrorInfoService();
+            var infoService = InfoServiceMocks.GetErrorInfoService();
             var loggerMock = new Mock<ILogger<TermsController>>();
             var termsController = new TermsController(infoService, loggerMock.Object);
 
@@ -65,7 +65,7 @@ namespace BravaTests.Controllers
         public void Index_LogsError_OnException()
         {
             // Arrange
-            var infoService = RepositoryMocks.GetErrorInfoService();
+            var infoService = InfoServiceMocks.GetErrorInfoService();
             var loggerMock = new Mock<ILogger<TermsController>>();
             var termsController = new TermsController(infoService, loggerMock.Object);
 
